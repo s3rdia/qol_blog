@@ -1,0 +1,61 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  description: "A blog for the package qol"
+  site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
+  title: "qol Blog"
+  navbar:
+    right:
+      - about.qmd
+      - icon: rss
+        href: index.xml
+      - icon: github
+        href: https://github.com/s3rdia/qol
+      - icon: r-circle-fill
+        href: https://CRAN.R-project.org/package=qol
+      - icon: reddit
+        href: https://www.reddit.com/user/qol_package/
+      - icon: info-circle-fill
+        href: https://s3rdia.github.io/qol/
+      - icon: card-list
+        href: https://www.r-bloggers.com/
+format:
+  html:
+    respect-user-color-scheme: true
+    callout-icon: false
+    theme:
+      light: flatly
+      dark: darkly
+    highlight-style: a11y
+    grid:
+      sidebar-width: 330px
+      body-width: 900px
+    include-in-header:
+      text: |
+        <style>
+        p { text-align: justify; }
+        </style>
+    include-after-body:
+      text: |
+        <style>
+        /* Change navigation bar and top menu background color */
+        .navbar, .quarto-title-banner { 
+          background-color: #048b3c !important; 
+        }
+
+        /* Ensuring all text in these areas is white */
+        .navbar-title, .navbar-brand, .nav-link, .title, .subtitle { 
+          color: white !important; 
+        }
+        
+        /* Target the title text color on the about page, because this page
+           has a special layout */
+        .quarto-about-broadside .quarto-title .title,
+        .quarto-about-broadside .about-entity,
+        .quarto-about-broadside .about-contents {
+          /* This variable automatically flips between dark and light based on the toggle */
+          color: var(--quarto-body-color) !important;
+        }
+        </style>

@@ -1,0 +1,44 @@
+---
+title: "About"
+image: logo.png
+about:
+  template: broadside
+  image-shape: rectangle
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/s3rdia/qol
+    - icon: r-circle-fill
+      text: CRAN
+      href: https://CRAN.R-project.org/package=qol
+    - icon: reddit
+      text: Reddit
+      href: https://www.reddit.com/user/qol_package/
+    - icon: info-circle-fill
+      text: Reference
+      href: https://s3rdia.github.io/qol/
+    - icon: card-list
+      text: R-bloggers
+      href: https://www.r-bloggers.com/
+
+---
+
+## qol - Quality of Life
+
+Bringing Powerful 'SAS' Inspired Concepts for more Efficient Bigger Outputs to 'R'.
+
+The main goal is to make descriptive evaluations easier to create bigger and more complex outputs in less time with less code. Introducing format containers with multilabels, a more powerful summarise which is capable to output every possible combination of the provided grouping variables in one go, tabulation functions which can create any table in different styles and other more readable functions. The code is optimized to work fast even with datasets of over a million observations.
+
+## Installation
+
+```{r install, eval = FALSE}
+# Official release
+install.packages("qol")
+
+# Development version
+devtools::install_github("s3rdia/qol")
+
+install.packages('qol', repos = c('https://s3rdia.r-universe.dev', 'https://cloud.r-project.org'))
+
+pak::pak("s3rdia/qol")
+```

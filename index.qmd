@@ -1,0 +1,17 @@
+---
+title: "qol Blog"
+listing:
+  contents: posts
+  feed: true
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+  image-height: 180px
+  max-description-length: 300
+page-layout: full
+title-block-banner: true
+---
+
+

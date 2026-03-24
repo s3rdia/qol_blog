@@ -1,0 +1,197 @@
+---
+title: "qol 1.2.0: MASSIVE Update Makes It Its Own Ecosystem For Descriptive Evaluations And Data Wrangling"
+image: "logo.png"
+author: "qol Blog"
+date: "2026-01-13"
+categories: [R, Update]
+---
+
+With the newest update this package brings even more SAS functionalities to R and becomes its own ecosystem. So what's in it?
+
+* 38 new functions, among other things a powerful transpose function, data frame content reports, global styling options, CSV and XLSX import and export and many more.
+* New functionalities for already established functions, like keeping/dropping variable ranges or generate a more interactive master file.
+* Further optimizations to make the code run faster, up to 40% in some places.
+* Some bug fixes and an even more robust error handling.
+
+An many more things. The full release notes can be seen [here](https://github.com/s3rdia/qol/releases/tag/v1.2.0).
+
+# Fast And Powerful Yet Simple To Use Transpose
+
+[transpose_plus](https://s3rdia.github.io/qol/reference/transpose_plus.html) is just very loosely based on the 'SAS' procedure Proc Transpose, and the possibilities of a Data-Step transposition using loops.
+
+The transposition methods 'SAS' has to offer are actually fairly weak. Which is weird because all tools are there to have another powerful function. So transpose_plus() tries to create the function 'SAS' should have.
+
+The function is able to interpret which transposition direction the user wants by just looking at what the user provided with the function parameters. For a long to wide transposition it is natural to just provide variables to transpose. While it is also just natural to provide new variable names when transposing from wide to long. That alone reduces the number of parameters the user has to enter to perform a simple transposition.
+
+The real magic happens when formats come into play. With their help you can not only name new variables or their expressions, but you can also generate completely new expressions with no effort, just with the help of multilabels.
+
+```{R, eval = FALSE}
+# Example formats
+age. <- discrete_format(
+    "Total"          = 0:100,
+    "under 18"       = 0:17,
+    "18 to under 25" = 18:24,
+    "25 to under 55" = 25:54,
+    "55 to under 65" = 55:64,
+    "65 and older"   = 65:100)
+
+sex. <- discrete_format(
+    "Total"  = 1:2,
+    "Male"   = 1,
+    "Female" = 2)
+
+sex2. <- discrete_format(
+    "Total"  = c("Male", "Female"),
+    "Male"   = "Male",
+    "Female" = "Female")
+
+income. <- interval_format(
+    "Total"              = 0:99999,
+    "below 500"          = 0:499,
+    "500 to under 1000"  = 500:999,
+    "1000 to under 2000" = 1000:1999,
+    "2000 and more"      = 2000:99999)
+
+# Example data frame
+my_data <- dummy_data(1000)
+
+# Transpose from long to wide and use a multilabel to generate additional categories
+long_to_wide <- my_data |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = c("sex", "education"),
+                   values   = income,
+                   formats  = list(sex = sex., age = age.),
+                   weight   = weight,
+                   na.rm    = TRUE)
+
+# Transpose back from wide to long
+wide_to_long <- long_to_wide |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = list(sex       = c("Total", "Male", "Female"),
+                                   education = c("low", "middle", "high")))
+
+# Nesting variables in long to wide transposition
+nested <- my_data |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = "sex + education",
+                   values   = income,
+                   formats  = list(sex = sex., age = age.),
+                   weight   = weight,
+                   na.rm    = TRUE)
+
+# Or both, nested and un-nested, at the same time
+both <- my_data |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = c("sex + education", "sex", "education"),
+                   values   = income,
+                   formats  = list(sex = sex., age = age.),
+                   weight   = weight,
+                   na.rm    = TRUE)
+```
+
+# Sort Data Frame Rows With Some Additions
+
+Sort data frame rows by the provided variables. [sort_plus](https://s3rdia.github.io/qol/reference/sort_plus.html) is also able to preserve the current order of certain variables and only sort other variables within this order. As another option one can sort a variable with the help of formats, which can be used to e.g. sort a character variable in another than alphabetical order without creating a temporary variable just for sorting.
+
+```{R, eval = FALSE}
+# Example formats
+education. <- discrete_format(
+    "1" = "low",
+    "2" = "middle",
+    "3" = "high")
+
+# Example data frame
+my_data <- dummy_data(1000)
+
+# Simple sorting
+sort_df1 <- my_data |> sort_plus(by = c(state, sex, age))
+sort_df2 <- my_data |> sort_plus(by    = c(state, sex, age),
+                                 order = c("ascending", "descending"))
+
+# Character variables will normally be sorted alphabetically. With the help
+# of a format this variable can be sorted in a completely different way.
+sort_df3 <- my_data |> sort_plus(by      = education,
+                                 formats = list(education = education.))
+
+# Preserve the order of the character variable, otherwise it couldn't stay in
+# it's current order.
+sort_df4 <- sort_df3 |> sort_plus(by       = age,
+                                  preserve = education)
+```
+
+# Introducing Many Global Options For Style And Descriptions
+
+```{R, eval = FALSE}
+set_style_options() sets the styling options for Excel workbooks globally.These options are used by all tabulation and output functions, which are capable of exporting styled outputs.
+reset_style_options() resets global style options to the default parameters.
+get_style_options() prints out the currently set global styling options.
+close_file() is a simple, more readable wrapper for setting file parameter to NULL.
+set_variable_labels(): Can set variable labels globally so that they don't have to be provided in every output function separately.
+get_variable_labels(): Get the globally stored variable labels.
+set_stat_labels(): Can set statistic labels globally so that they don't have to be provided in every output function separately.
+get_stat_labels(): Get the globally stored statistic labels.
+reset_qol_options() resets global options to the default parameters.
+set_print(): Set the print option globally for the tabulation and export to Excel functions.
+get_print(): Get the globally stored print option.
+set_monitor(): Set the monitor option globally for the heavier functions which are able to show how they work internally.
+get_monitor(): Get the globally stored monitor option.
+set_na.rm(): Set the na.rm option globally for each function which can remove NA values.
+get_na.rm(): Get the globally stored na.rm option.
+set_print_miss(): Set the print_miss option globally for each function which can display missing categories.
+get_print_miss(): Get the globally stored print_miss option.
+set_output(): Set the output option globally for each function that can output results to "console", "text", "excel" or "excel_nostyle".
+get_output(): Get the globally stored output option.
+set_titles(): Set the titles globally for each function that can print titles above the output table.
+get_titles(): Get the globally stored titles.
+set_footnotes(): Set the footnotes globally for each function that can print footnotes above the output table.
+get_footnotes(): Get the globally stored footnotes.
+```
+
+# Get Detailed Summary About A Data Frame
+
+[content_report](https://s3rdia.github.io/qol/reference/content_report.html) is based on the 'SAS' procedure Proc Contents, which provides a summary of global information one one hand like number of observations and variables among many others and on the other hand shows per variable information like type and length.
+
+'R' doesn't store the same information in a data frame like 'SAS', but there are many useful information to get a quick overview of a data frame. With this function you don't need to look at each variable individually. You can simply run it over a data frame and get values for: number of unique values, missing values (absolute and relative), min and max value as well as the top value.
+
+
+```{R, eval = FALSE}
+# Example data frame
+my_data <- dummy_data(100)
+
+content_report(my_data)
+```
+
+# High Level Import From And Export To CSV And XLSX
+
+[import_data](https://s3rdia.github.io/qol/reference/import_export.html) and [export_data](https://s3rdia.github.io/qol/reference/import_export.html) are based on the 'SAS' procedures Proc Import and Proc Export, which provide a very straight forward syntax. While 'SAS' can import many different formats with these procedures, these 'R' versions concentrate on importing CSV and XLSX files.
+
+The main goal here is to just provide as few as possible parameters to tackle most of the imports and exports. These error handling also tries to let an import and export happen, even though a parameter wasn't provided in the correct way.
+
+
+```{R, eval = FALSE}
+# Example files
+csv_file  <- system.file("extdata", "qol_example_data.csv",  package = "qol")
+xlsx_file <- system.file("extdata", "qol_example_data.xlsx", package = "qol")
+
+# Import: Provide full file path
+my_csv  <- import_data(csv_file)
+my_xlsx <- import_data(xlsx_file)
+
+# Import specific regions
+range_import <- import_data(xlsx_file, region = "B4:H32")
+name_import  <- import_data(xlsx_file, region = "test_region")
+
+# Import from another sheet
+sheet_import <- import_data(xlsx_file, sheet = "Sheet 2")
+
+# Example data frame
+my_data <- dummy_data(100)
+
+# Example export file paths
+export_csv  <- tempfile(fileext = ".csv")
+export_xlsx <- tempfile(fileext = ".xlsx")
+
+# Export: Provide full file path
+my_data |> export_data(export_csv)
+my_data |> export_data(export_xlsx)
+```

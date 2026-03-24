@@ -1,0 +1,112 @@
+---
+title: "qol 1.2.1: Update Brings More Functions, More Functionalities, More Optimizations And A Bunch Of Fixes"
+image: "logo.png"
+author: "qol Blog"
+date: "2026-02-12"
+categories: [R, Update]
+---
+
+Another update found its way to CRAN. Thematically it goes with the previous update, meaning more on data wrangling, adjusted and added functionalities to established functions, bug fixes and optimizations.
+
+* 14 new functions, among other things CSV and XLSX import and export for multiple files, string manipulation, memory management and SAS Macor variables.
+* New functionalities for already established functions, like outputting all possible group variable categories, even if there are no observations for a combination or printing sub headers in tables.
+* Further optimizations to reduce memory usage and make the code run faster.
+* And of course some bug fixes.
+
+The full release notes can be seen [here](https://github.com/s3rdia/qol/releases/tag/v1.2.1).
+
+# Retrieve A Substring
+
+[sub_string](https://s3rdia.github.io/qol/reference/sub_string.html) can extract parts of a character from the left side, right side or from the middle. It is also able to start or end at specific letter sequences instead of positions.
+
+```{R, eval = FALSE}
+# Example data frame
+my_data <- dummy_data(100)
+
+# Extract text from the left
+my_data[["left"]] <- my_data |> sub_string(education, to = 2)
+
+# Extract text from the right
+my_data[["right"]] <- my_data |> sub_string(education, from = 2)
+
+# Extract text from the middle
+my_data[["middle"]] <- my_data |> sub_string(education, from = 2, to = 3)
+
+# Find text and extract from the left
+my_data[["left2"]] <- my_data |> sub_string(education, to = "l")
+
+# Find text and extract from the right
+my_data[["right2"]] <- my_data |> sub_string(education, from = "l")
+
+# Find text and extract from the middle
+my_data[["middle2"]] <- my_data |> sub_string(education, from = "i", to = "l")
+```
+
+# Resolve Macro Variables In A Text 
+
+[Macro](https://s3rdia.github.io/qol/reference/macro.html) variables in 'SAS' can be set up with %Let and can act as global accessible variables. This in itself is nothing special to 'R' because basically every object created outside a function is a global variable.
+
+To use these global objects within a text one has to use e.g. paste0("The current year is: ", year). With the macro function one can write it like this: macro("The current year is &year").
+
+So where is the benefit? If implemented within a function, a parameter like "title" or "footnote" in the tabulation functions, can resolve these variables without the need of another function. You can just pass the character expression "The current year is &year" and the implementation inside the function resolves the macro variable directly in place.
+
+```{R, eval = FALSE}
+# Resolving macro variable in single character
+year <- 2026
+
+text <- macro("The current year is &year")
+
+# You can also combine multiple macro variables
+some_variable <- "current"
+current2026   <- "The current year is"
+
+text_combi <- macro("&&some_variable&year &year")
+
+# Resolving macro variable in character vector
+char_vector <- c("The current year is &year",
+                 "The &some_variable year is &year",
+                 "&&some_variable&year &year")
+
+text_vector <- apply_macro(char_vector)
+```
+
+# Filter observations and variables and directly view the result on screen
+
+```{R, eval = FALSE}
+# Example data frame
+my_data <- dummy_data(1000)
+
+# Get a quick filtered view
+my_data |> where.(sex == 1 & age < 25,
+                  c(sex, age, household_id, education))
+```
+
+# Run multiple imports and exports
+
+[import_multi](https://s3rdia.github.io/qol/reference/import_export.html) and [export_multi](https://s3rdia.github.io/qol/reference/import_export.html) are based on the 'SAS' procedures Proc Import and Proc Export, which provide a very straight forward syntax. While 'SAS' can import many different formats with these procedures, these 'R' versions concentrate on importing CSV and XLSX files.
+
+The main goal here is to just provide as few as possible parameters to tackle most of the imports and exports. These error handling also tries to let an import and export happen, even though a parameter wasn't provided in the correct way.
+
+
+```{R, eval = FALSE}
+# Example files
+csv_file  <- system.file("extdata", "qol_example_data.csv",  package = "qol")
+xlsx_file <- system.file("extdata", "qol_example_data.xlsx", package = "qol")
+
+# Import multiple files at once
+all_files <- import_multi(c(csv_file, xlsx_file))
+
+# Example data frame list
+my_list <- list(first  = dummy_data(10),
+                second = dummy_data(10))
+
+# Export multiple data frames into one xlsx file
+# with multiple sheets
+export_multi(my_list, tempdir())
+
+# Export multiple data frames into multiple xlsx files
+export_multi(my_list, tempdir(), into_sheets = FALSE)
+
+# Export multiple data frames into multiple csv files
+export_multi(my_list, tempdir(), separator = ";")
+```
