@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="qol Blog">
-<meta name="dcterms.date" content="2026-03-11">
+<meta name="dcterms.date" content="2026-04-01">
 
-<title>qol 1.2.2: New Update Offers New Options To Compute Percentages – qol Blog</title>
+<title>qol 1.4: Introducing Revolutionary New Reverse Pipe Operator – qol Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -352,7 +352,7 @@ p { text-align: justify; }
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">qol 1.2.2: New Update Offers New Options To Compute Percentages</h1>
+      <h1 class="title">qol 1.4: Introducing Revolutionary New Reverse Pipe Operator</h1>
                                 <div class="quarto-categories">
                 <div class="quarto-category">R</div>
                 <div class="quarto-category">Update</div>
@@ -373,7 +373,7 @@ p { text-align: justify; }
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">March 11, 2026</p>
+        <p class="date">April 1, 2026</p>
       </div>
     </div>
     
@@ -393,89 +393,47 @@ p { text-align: justify; }
 
 
 
-<p>The new update offers some new ways of computing different percentages. The full release notes can be seen <a href="https://github.com/s3rdia/qol/releases/tag/v1.2.2">here</a>.</p>
-<p>First of all lets look at an example of how tabulation looks like. First we generate a dummy data frame an prepare our formats, which basically translate single expressions into resulting categories, which later appear in the final table.</p>
+<p>qol is an all purpose package which wants to make descriptive evaluations easier. It offers a lot of data wrangling and tabulation functions to generate bigger and more complex tables in less time with less code. One of the main goals is to make code more readable and have a more natural workflow. This new update therefor asked the question: Doesn’t it bother you that you normally think about the result first, but have to tediously go from A to Z to reach the goal?</p>
+<p>But before I present the solution to this question, you can now chat with the qol repository - if you like - to dynamically explore what the package has to offer: <a href="https://deepwiki.com/s3rdia/qol" class="uri">https://deepwiki.com/s3rdia/qol</a></p>
+<p>So what is the answer to the stated question? The new “reverse pipe operator”:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">dummy_data</span>(<span class="dv">100000</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create format containers</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>age. <span class="ot">&lt;-</span> <span class="fu">discrete_format</span>(</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Total"</span>          <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>,</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"under 18"</span>       <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">17</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"18 to under 25"</span> <span class="ot">=</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">24</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"25 to under 55"</span> <span class="ot">=</span> <span class="dv">25</span><span class="sc">:</span><span class="dv">54</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"55 to under 65"</span> <span class="ot">=</span> <span class="dv">55</span><span class="sc">:</span><span class="dv">64</span>,</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"65 and older"</span>   <span class="ot">=</span> <span class="dv">65</span><span class="sc">:</span><span class="dv">100</span>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>sex. <span class="ot">&lt;-</span> <span class="fu">discrete_format</span>(</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Total"</span>  <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Male"</span>   <span class="ot">=</span> <span class="dv">1</span>,</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Female"</span> <span class="ot">=</span> <span class="dv">2</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>education. <span class="ot">&lt;-</span> <span class="fu">discrete_format</span>(</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Total"</span>            <span class="ot">=</span> <span class="fu">c</span>(<span class="st">"low"</span>, <span class="st">"middle"</span>, <span class="st">"high"</span>),</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="st">"low education"</span>    <span class="ot">=</span> <span class="st">"low"</span>,</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    <span class="st">"middle education"</span> <span class="ot">=</span> <span class="st">"middle"</span>,</span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">"high education"</span>   <span class="ot">=</span> <span class="st">"high"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># What once was written like this</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>result <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">if.</span>(income <span class="sc">&gt;</span> <span class="dv">1000</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">any_table</span>(<span class="at">rows    =</span> age,</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">columns =</span> sex,</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">values  =</span> income,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">statistics =</span> <span class="st">"mean"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Can now be written like this</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>result <span class="sc">&lt;</span><span class="er">|</span> <span class="fu">any_table</span>(<span class="at">rows    =</span> age,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">columns =</span> sex,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                    <span class="at">values  =</span> income,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                    <span class="at">statistics =</span> <span class="st">"mean"</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>       <span class="sc">&lt;</span><span class="er">|</span> <span class="fu">if.</span>(income <span class="sc">&gt;</span> <span class="dv">1000</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>       <span class="sc">&lt;</span><span class="er">|</span> my_data</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>And after that we just tabulate our data without any other step in between:</p>
+<p>So you basically first describe what you want and then reverse engineer from there to the origin. Instead of passing data down the chain, you now pass concepts up. This makes code execution faster and saves memory, because the data always stays in its original form.</p>
+<p>To further enhance the idea of making workflows faster, qol now also implements the so called “productivity_mode”. If activated, you dynamically receive information about the current pructivity state:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define style</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set_style_options</span>(<span class="at">column_widths =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">15</span>, <span class="dv">9</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define titles and footnotes. If you want to add hyperlinks you can do so by</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># adding "link:" followed by the hyperlink to the main text.</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">set_titles</span>(<span class="st">"This is title number 1 link: https://cran.r-project.org/"</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>           <span class="st">"This is title number 2"</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>           <span class="st">"This is title number 3"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set_productivity_mode</span>(<span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Which outputs dynamically based on the current state</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>CPU usage<span class="sc">:</span> <span class="dv">12</span>%</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Memory<span class="sc">:</span> <span class="fl">3.0</span> GB</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>Developer stress<span class="sc">:</span> HIGH</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Coffee level<span class="sc">:</span> LOW</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>Recommendation<span class="sc">:</span> Simplify pipeline</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">set_footnotes</span>(<span class="st">"This is footnote number 1"</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>              <span class="st">"This is footnote number 2"</span>,</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>              <span class="st">"This is footnote number 3 link: https://cran.r-project.org/"</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Can also detect edge cases</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>WARNING<span class="sc">:</span> Productivity low.</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>Recommendation<span class="sc">:</span> Take a break.</span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Output complex tables with different percentages</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> <span class="fu">any_table</span>(<span class="at">rows       =</span> <span class="fu">c</span>(<span class="st">"sex + age"</span>, <span class="st">"sex"</span>, <span class="st">"age"</span>),</span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                     <span class="at">columns    =</span> <span class="fu">c</span>(<span class="st">"year"</span>, <span class="st">"education + year"</span>),</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values     =</span> weight,</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">statistics =</span> <span class="fu">c</span>(<span class="st">"sum"</span>, <span class="st">"pct_group"</span>),</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                     <span class="at">pct_group  =</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"age"</span>),</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">formats    =</span> <span class="fu">list</span>(<span class="at">sex =</span> sex., <span class="at">age =</span> age.,</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">education =</span> education.),</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                     <span class="at">na.rm      =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a><span class="fu">reset_style_options</span>()</span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a><span class="fu">reset_qol_options</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co"># And of course boost performance</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>Coffee detected. <span class="ot">-&gt;</span> Increasing performance.</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The update now introduces two new keywords: row_pct and col_pct. Using these in the pct_group parameter enables us to compute row and column percentages regardless of which and how many variables are used.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> <span class="fu">any_table</span>(<span class="at">rows       =</span> <span class="fu">c</span>(<span class="st">"sex"</span>, <span class="st">"age"</span>, <span class="st">"sex + age"</span>, <span class="st">"education"</span>),</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">columns    =</span> <span class="st">"year"</span>,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values     =</span> weight,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">by         =</span> state,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">statistics =</span> <span class="fu">c</span>(<span class="st">"pct_group"</span>, <span class="st">"sum"</span>, <span class="st">"freq"</span>),</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                     <span class="at">pct_group  =</span> <span class="fu">c</span>(<span class="st">"row_pct"</span>, <span class="st">"col_pct"</span>),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">formats    =</span> <span class="fu">list</span>(<span class="at">sex =</span> sex., <span class="at">age =</span> age., <span class="at">state =</span> state.,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">education =</span> education.),</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">na.rm      =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Also new is that you can compute percentages based on an expression of a result category. For this you can use the pct_value parameter put in the variable and desired expression which is your 100% and you are good to go:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> <span class="fu">any_table</span>(<span class="at">rows        =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"education"</span>),</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">columns     =</span> <span class="st">"year + sex"</span>,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">values      =</span> weight,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">pct_value   =</span> <span class="fu">list</span>(<span class="at">sex =</span> <span class="st">"Total"</span>),</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">formats     =</span> <span class="fu">list</span>(<span class="at">sex =</span> sex., <span class="at">age =</span> age.,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">education =</span> education.),</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                     <span class="at">var_labels  =</span> <span class="fu">list</span>(<span class="at">sex =</span> <span class="st">""</span>, <span class="at">age =</span> <span class="st">""</span>, <span class="at">education =</span> <span class="st">""</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">year =</span> <span class="st">""</span>, <span class="at">weight =</span> <span class="st">""</span>),</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                     <span class="at">stat_labels =</span> <span class="fu">list</span>(<span class="at">pct =</span> <span class="st">"%"</span>, <span class="at">sum =</span> <span class="st">"1000"</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">freq =</span> <span class="st">"Count"</span>),</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">box         =</span> <span class="st">"Attribute"</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">na.rm       =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Here is an impression of what the results look like:</p>
-<p><img src="results.gif" class="img-fluid"></p>
-<p>You probably noticed that there are some other options which let you design your tables in a flexible way. To get a better and more in depths overview of what else this package has to offer you can have a look here: <a href="https://s3rdia.github.io/qol/" class="uri">https://s3rdia.github.io/qol/</a></p>
+<p>If you want to know what else this package has to offer, you can have a look at the GitHub repository: <a href="https://github.com/s3rdia/qol" class="uri">https://github.com/s3rdia/qol</a><br>
+Or the GitHub page for a full reference of the over 100 functions: <a href="https://s3rdia.github.io/qol/" class="uri">https://s3rdia.github.io/qol/</a></p>
 
 
 

@@ -10,9 +10,159 @@
 <atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog for the package qol</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Tue, 10 Mar 2026 23:00:00 GMT</lastBuildDate>
+<lastBuildDate>Tue, 31 Mar 2026 22:00:00 GMT</lastBuildDate>
 <item>
-  <title>qol 1.2.2: New update offers new options to compute percentages</title>
+  <title>qol 1.4: Introducing Revolutionary New Reverse Pipe Operator</title>
+  <dc:creator>qol Blog</dc:creator>
+  <link>https://your-website-url.example.com/posts/07. Update 1.4/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>qol is an all purpose package which wants to make descriptive evaluations easier. It offers a lot of data wrangling and tabulation functions to generate bigger and more complex tables in less time with less code. One of the main goals is to make code more readable and have a more natural workflow. This new update therefor asked the question: Doesn’t it bother you that you normally think about the result first, but have to tediously go from A to Z to reach the goal?</p>
+<p>But before I present the solution to this question, you can now chat with the qol repository - if you like - to dynamically explore what the package has to offer: <a href="https://deepwiki.com/s3rdia/qol" class="uri">https://deepwiki.com/s3rdia/qol</a></p>
+<p>So what is the answer to the stated question? The new “reverse pipe operator”:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># What once was written like this</span></span>
+<span id="cb1-2">result <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> my_data <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-3">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">if.</span>(income <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-4">    <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">any_table</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">rows    =</span> age,</span>
+<span id="cb1-5">              <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">columns =</span> sex,</span>
+<span id="cb1-6">              <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">values  =</span> income,</span>
+<span id="cb1-7">              <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">statistics =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mean"</span>)</span>
+<span id="cb1-8"></span>
+<span id="cb1-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Can now be written like this</span></span>
+<span id="cb1-10">result <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">|</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">any_table</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">rows    =</span> age,</span>
+<span id="cb1-11">                    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">columns =</span> sex,</span>
+<span id="cb1-12">                    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">values  =</span> income,</span>
+<span id="cb1-13">                    <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">statistics =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"mean"</span>)</span>
+<span id="cb1-14">       <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">|</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">if.</span>(income <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span>)</span>
+<span id="cb1-15">       <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&lt;</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">|</span> my_data</span></code></pre></div></div>
+</div>
+<p>So you basically first describe what you want and then reverse engineer from there to the origin. Instead of passing data down the chain, you now pass concepts up. This makes code execution faster and saves memory, because the data always stays in its original form.</p>
+<p>To further enhance the idea of making workflows faster, qol now also implements the so called “productivity_mode”. If activated, you dynamically receive information about the current pructivity state:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">set_productivity_mode</span>(<span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span>
+<span id="cb2-2"></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Which outputs dynamically based on the current state</span></span>
+<span id="cb2-4">CPU usage<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>%</span>
+<span id="cb2-5">Memory<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.0</span> GB</span>
+<span id="cb2-6">Developer stress<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> HIGH</span>
+<span id="cb2-7">Coffee level<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> LOW</span>
+<span id="cb2-8">Recommendation<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> Simplify pipeline</span>
+<span id="cb2-9"></span>
+<span id="cb2-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Can also detect edge cases</span></span>
+<span id="cb2-11">WARNING<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> Productivity low.</span>
+<span id="cb2-12">Recommendation<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> Take a break.</span>
+<span id="cb2-13"></span>
+<span id="cb2-14"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># And of course boost performance</span></span>
+<span id="cb2-15">Coffee detected. <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">-&gt;</span> Increasing performance.</span></code></pre></div></div>
+</div>
+<p>If you want to know what else this package has to offer, you can have a look at the GitHub repository: <a href="https://github.com/s3rdia/qol" class="uri">https://github.com/s3rdia/qol</a><br>
+Or the GitHub page for a full reference of the over 100 functions: <a href="https://s3rdia.github.io/qol/" class="uri">https://s3rdia.github.io/qol/</a></p>
+
+
+
+ ]]></description>
+  <category>R</category>
+  <category>Update</category>
+  <guid>https://your-website-url.example.com/posts/07. Update 1.4/</guid>
+  <pubDate>Tue, 31 Mar 2026 22:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/07. Update 1.4/logo.png" medium="image" type="image/png" height="111" width="144"/>
+</item>
+<item>
+  <title>qol 1.2.2: New Update Offers New Options To Compute Percentages</title>
   <dc:creator>qol Blog</dc:creator>
   <link>https://your-website-url.example.com/posts/06. Update 1.2.2/</link>
   <description><![CDATA[ 
@@ -476,7 +626,7 @@ font-style: inherit;">TRUE</span>)</span></code></pre></div></div>
 </div>
 <p>Here is an impression of what the results look like:</p>
 <p><img src="https://your-website-url.example.com/posts/06. Update 1.2.2/results.gif" class="img-fluid"></p>
-<p>You probably noticed that there are some other options which let you design your tables in a flexible way. To get a better and more in depths overview of what else this package has to offer you can have a look here: https://s3rdia.github.io/qol/</p>
+<p>You probably noticed that there are some other options which let you design your tables in a flexible way. To get a better and more in depths overview of what else this package has to offer you can have a look here: <a href="https://s3rdia.github.io/qol/" class="uri">https://s3rdia.github.io/qol/</a></p>
 
 
 

@@ -99,4 +99,4 @@ Here is an impression of what the results look like:
 
 ![](results.gif)
 
-You probably noticed that there are some other options which let you design your tables in a flexible way. To get a better and more in depths overview of what else this package has to offer you can have a look here: https://s3rdia.github.io/qol/
+You probably noticed that there are some other options which let you design your tables in a flexible way. To get a better and more in depths overview of what else this package has to offer you can have a look here: <https://s3rdia.github.io/qol/>

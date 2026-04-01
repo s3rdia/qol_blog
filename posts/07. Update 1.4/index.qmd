@@ -1,0 +1,56 @@
+---
+title: "qol 1.4: Introducing Revolutionary New Reverse Pipe Operator"
+image: "logo.png"
+author: "qol Blog"
+date: "2026-04-01"
+categories: [R, Update]
+---
+
+qol is an all purpose package which wants to make descriptive evaluations easier. It offers a lot of data wrangling and tabulation functions to generate bigger and more complex tables in less time with less code. One of the main goals is to make code more readable and have a more natural workflow. This new update therefor asked the question: Doesn't it bother you that you normally think about the result first, but have to tediously go from A to Z to reach the goal?
+
+But before I present the solution to this question, you can now chat with the qol repository - if you like - to dynamically explore what the package has to offer: <https://deepwiki.com/s3rdia/qol>
+
+So what is the answer to the stated question? The new "reverse pipe operator":
+
+```{R, eval = FALSE}
+# What once was written like this
+result <- my_data |>
+    if.(income > 1000) |>
+    any_table(rows    = age,
+              columns = sex,
+              values  = income,
+              statistics = "mean")
+
+# Can now be written like this
+result <| any_table(rows    = age,
+                    columns = sex,
+                    values  = income,
+                    statistics = "mean")
+       <| if.(income > 1000)
+       <| my_data
+```
+
+So you basically first describe what you want and then reverse engineer from there to the origin. Instead of passing data down the chain, you now pass concepts up. This makes code execution faster and saves memory, because the data always stays in its original form.
+
+To further enhance the idea of making workflows faster, qol now also implements the so called "productivity_mode". If activated, you dynamically receive information about the current pructivity state:
+
+```{R, eval = FALSE}
+set_productivity_mode(TRUE)
+
+# Which outputs dynamically based on the current state
+CPU usage: 12%
+Memory: 3.0 GB
+Developer stress: HIGH
+Coffee level: LOW
+Recommendation: Simplify pipeline
+
+# Can also detect edge cases
+WARNING: Productivity low.
+Recommendation: Take a break.
+
+# And of course boost performance
+Coffee detected. -> Increasing performance.
+```
+
+If you want to know what else this package has to offer, you can have a look at the GitHub repository: <https://github.com/s3rdia/qol>\
+Or the GitHub page for a full reference of the over 100 functions: <https://s3rdia.github.io/qol/>
