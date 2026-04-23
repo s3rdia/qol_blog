@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="qol Blog">
+<meta name="dcterms.date" content="2026-04-21">
 
-<title>qol Blog</title>
+<title>printify 1.0.0: Custom Formatted Console Messages with Timing Support – qol Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,33 +22,66 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bb1cd4028f63a369ab283e072cb7d572.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-54c8f25464f32f8783bd446cee98020d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bb1cd4028f63a369ab283e072cb7d572.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-bf88211e7fdd758f8795268712aa1b80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b14d1f740d562c7bba7e058c0ad2b0ed.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-bf88211e7fdd758f8795268712aa1b80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bb1cd4028f63a369ab283e072cb7d572.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-54c8f25464f32f8783bd446cee98020d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bb1cd4028f63a369ab283e072cb7d572.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-bf88211e7fdd758f8795268712aa1b80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-b14d1f740d562c7bba7e058c0ad2b0ed.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-bf88211e7fdd758f8795268712aa1b80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,72 +109,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>
 p { text-align: justify; }
 </style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
+</head>
 
-<link rel="alternate" type="application/rss+xml" title="qol Blog" href="index.xml" data-external="1"></head>
-
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -317,9 +294,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">qol Blog</span>
     </a>
   </div>
@@ -330,11 +307,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -374,331 +351,118 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">qol Blog</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">printify 1.0.0: Custom Formatted Console Messages with Timing Support</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Update</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>qol Blog </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">April 21, 2026</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(9)</span></div><div class="category" data-category="U2hvd2Nhc2U=">Showcase <span class="quarto-category-count">(3)</span></div><div class="category" data-category="VXBkYXRl">Update <span class="quarto-category-count">(6)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
 
+<p><a href="https://github.com/s3rdia/printify">printify</a> is a new lightweight message system relying purely on base R, meaning zero dependencies. Comes with built-in and pre styled message types and provides an easy way to create custom messages. Supports individually styled and colored text as well as timing information. Designed to make console output more informative and visually organized. It was just released on <a href="https://CRAN.R-project.org/package=printify">CRAN</a>.</p>
+<p>This message system is part of the qol-package (https://github.com/s3rdia/qol) but can now be used as a standalone version.</p>
+<p><img src="printify.gif" class="img-fluid"></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example messages</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message</span>(<span class="st">"NOTE"</span>, <span class="fu">c</span>(<span class="st">"Just a quick note that you can also insert e.g.[? a / ]variable"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"name[?s] like this: [listing]."</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                        <span class="st">"Depending on the number of variables you can also alter the text."</span>),</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">listing =</span> <span class="fu">c</span>(<span class="st">"age"</span>, <span class="st">"state"</span>, <span class="st">"NUTS3"</span>))</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message</span>(<span class="st">"WARNING"</span>, <span class="st">"Just a quick [#FF00FF colored warning]!"</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message</span>(<span class="st">"ERROR"</span>, <span class="st">"Or a [b]bold[/b], [i]italic[/i] and [u]underlined[/u] error."</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">print_message</span>(<span class="st">"NEUTRAL"</span>, <span class="fu">c</span>(<span class="st">"You can also just output [u]plain text[/u] if you like and use"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"[#FFFF00 [b]all the different[/b] [i]formatting options.[/i]]"</span>))</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Different headlines</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="fu">print_headline</span>(<span class="st">"This is a headline"</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">print_headline</span>(<span class="st">"[#00FFFF This is a different headline] with some color"</span>,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">line_char =</span> <span class="st">"-"</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print_headline</span>(<span class="st">"[b]This is a very small[/b] and bold headline"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>               <span class="at">line_char =</span> <span class="st">"."</span>,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>               <span class="at">max_width =</span> <span class="dv">60</span>)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Messages with time stamps</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>test_func <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_start_message</span>()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(<span class="st">"GREY"</span>, <span class="st">"Probably not so important"</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(<span class="st">"MAJOR"</span>, <span class="st">"This is a major step..."</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(<span class="st">"MINOR"</span>, <span class="st">"Sub step1"</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(<span class="st">"MINOR"</span>, <span class="st">"Sub step2"</span>)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(<span class="st">"MINOR"</span>, <span class="st">"Sub step3"</span>)</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(<span class="st">"MAJOR"</span>, <span class="st">"[b]Finishing... [/b][#00FFFF with some color again!]"</span>)</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_closing</span>()</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="fu">test_func</span>()</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># See what is going on in the message stack</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>message_stack <span class="ot">&lt;-</span> <span class="fu">get_message_stack</span>()</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a><span class="co"># Set up a custom message</span></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>hotdog <span class="ot">&lt;-</span> <span class="fu">set_up_custom_message</span>(<span class="at">ansi_icon =</span> <span class="st">"\U0001f32d"</span>,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>                                <span class="at">text_icon =</span> <span class="st">"IOI"</span>,</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>                                <span class="at">indent    =</span> <span class="dv">1</span>,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>                                <span class="at">type      =</span> <span class="st">"HOTDOG"</span>,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>                                <span class="at">color     =</span> <span class="st">"#B27A01"</span>)</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>hotdog_print <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_start_message</span>()</span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_message</span>(hotdog, <span class="fu">c</span>(<span class="st">"This is the first hotdog message! Hurray!"</span>,</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>                            <span class="st">"And it is also multiline in this version."</span>))</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(hotdog, <span class="st">"Or use as single line message with time stamps."</span>)</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(hotdog, <span class="st">"Or use as single line message with time stamps."</span>)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(hotdog, <span class="st">"Or use as single line message with time stamps."</span>)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_closing</span>()</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="fu">hotdog_print</span>()</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a><span class="co"># See new message in the message stack</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>hotdog_stack <span class="ot">&lt;-</span> <span class="fu">get_message_stack</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1776722400000" data-listing-file-modified-sort="1776977599254" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="630">
-<div class="thumbnail"><a href="./posts/09. printify/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/09. printify/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/09. printify/index.html" class="no-external">printify 1.0.0: Custom Formatted Console Messages with Timing Support</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/09. printify/index.html" class="no-external">
-printify is a new lightweight message system relying purely on base R, meaning zero dependencies. Comes with built-in and pre styled message types and provides an easy way to create custom messages. Supports individually styled and colored text as well as timing information. Designed to make…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/09. printify/index.html" class="no-external">
-<div class="listing-date">
-Apr 21, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1776463200000" data-listing-file-modified-sort="1776521161660" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21" data-listing-word-count-sort="4053">
-<div class="thumbnail"><a href="./posts/08. Update 1.3.0/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/08. Update 1.3.0/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/08. Update 1.3.0/index.html" class="no-external">qol 1.3.0: Update implements even more quality of life features</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/08. Update 1.3.0/index.html" class="no-external">
-This update has yet again some new functions to offer, but also enhances many existing ones. The full release notes can be seen here.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/08. Update 1.3.0/index.html" class="no-external">
-<div class="listing-date">
-Apr 18, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1774994400000" data-listing-file-modified-sort="1774991952553" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="444">
-<div class="thumbnail"><a href="./posts/07. Update 1.4/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/07. Update 1.4/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/07. Update 1.4/index.html" class="no-external">qol 1.4: Introducing Revolutionary New Reverse Pipe Operator</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/07. Update 1.4/index.html" class="no-external">
-qol is an all purpose package which wants to make descriptive evaluations easier. It offers a lot of data wrangling and tabulation functions to generate bigger and more complex tables in less time with less code. One of the main goals is to make code more readable and have a more natural workflow.…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/07. Update 1.4/index.html" class="no-external">
-<div class="listing-date">
-Apr 1, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1773183600000" data-listing-file-modified-sort="1774992015363" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1309">
-<div class="thumbnail"><a href="./posts/06. Update 1.2.2/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/06. Update 1.2.2/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/06. Update 1.2.2/index.html" class="no-external">qol 1.2.2: New Update Offers New Options To Compute Percentages</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/06. Update 1.2.2/index.html" class="no-external">
-The new update offers some new ways of computing different percentages. The full release notes can be seen here.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/06. Update 1.2.2/index.html" class="no-external">
-<div class="listing-date">
-Mar 11, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1770850800000" data-listing-file-modified-sort="1774381907711" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="678">
-<div class="thumbnail"><a href="./posts/05. Update 1.2.1/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/05. Update 1.2.1/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/05. Update 1.2.1/index.html" class="no-external">qol 1.2.1: Update Brings More Functions, More Functionalities, More Optimizations And A Bunch Of Fixes</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/05. Update 1.2.1/index.html" class="no-external">
-Another update found its way to CRAN. Thematically it goes with the previous update, meaning more on data wrangling, adjusted and added functionalities to established functions, bug fixes and optimizations.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/05. Update 1.2.1/index.html" class="no-external">
-<div class="listing-date">
-Feb 12, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1768258800000" data-listing-file-modified-sort="1774381799640" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1825">
-<div class="thumbnail"><a href="./posts/04. Update 1.2.0/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/04. Update 1.2.0/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/04. Update 1.2.0/index.html" class="no-external">qol 1.2.0: MASSIVE Update Makes It Its Own Ecosystem For Descriptive Evaluations And Data Wrangling</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/04. Update 1.2.0/index.html" class="no-external">
-With the newest update this package brings even more SAS functionalities to R and becomes its own ecosystem. So what’s in it?
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/04. Update 1.2.0/index.html" class="no-external">
-<div class="listing-date">
-Jan 13, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="UiUyQ1Nob3djYXNl" data-listing-date-sort="1764543600000" data-listing-file-modified-sort="1774360088375" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3995">
-<div class="thumbnail"><a href="./posts/03. Further compare/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/03. Further compare/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/03. Further compare/index.html" class="no-external">A Further Comparison Of qol And SAS</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U2hvd2Nhc2U='); return false;">Showcase</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/03. Further compare/index.html" class="no-external">
-In SAS you have to assign Libraries to have access to a file path. When assigning a Library SAS directly checks, if the given path is valid. Additionally you can view all the SAS data files in the user interface, which are available in a Library:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/03. Further compare/index.html" class="no-external">
-<div class="listing-date">
-Dec 1, 2025
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="UiUyQ1Nob3djYXNl" data-listing-date-sort="1761951600000" data-listing-file-modified-sort="1774360261002" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3075">
-<div class="thumbnail"><a href="./posts/02. SAS compare/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/02. SAS compare/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/02. SAS compare/index.html" class="no-external">Powerful Tabulation Thanks To SAS Concepts</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U2hvd2Nhc2U='); return false;">Showcase</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/02. SAS compare/index.html" class="no-external">
-SAS is a flagship when it comes to creating massive descriptive tables with little effort, because it offers the right tools. This package tries to adapt some of these to also make them available in R.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/02. SAS compare/index.html" class="no-external">
-<div class="listing-date">
-Nov 1, 2025
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="UiUyQ1Nob3djYXNl" data-listing-date-sort="1760047200000" data-listing-file-modified-sort="1774359988904" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3897">
-<div class="thumbnail"><a href="./posts/01. Initial post/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/01. Initial post/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/01. Initial post/index.html" class="no-external">Bringing Powerful ‘SAS’ Inspired Concepts for more Efficient Bigger Outputs to ‘R’</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U2hvd2Nhc2U='); return false;">Showcase</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/01. Initial post/index.html" class="no-external">
-The main goal is to make descriptive evaluations easier to create bigger and more complex outputs in less time with less code. Introducing format containers with multilabels, a more powerful summarise which is capable to output every possible combination of the provided grouping variables in one…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/01. Initial post/index.html" class="no-external">
-<div class="listing-date">
-Oct 10, 2025
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
