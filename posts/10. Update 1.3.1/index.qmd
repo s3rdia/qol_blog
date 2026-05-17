@@ -1,0 +1,134 @@
+---
+title: "qol 1.3.1: Detailed refinements"
+image: "logo.png"
+author: "qol Blog"
+date: "2026-05-16"
+categories: [R, Update]
+---
+
+This update doesn't implement any completely new functions, but focuses on refining existing ones. The full release notes can be seen [here](https://github.com/s3rdia/qol/releases/tag/v1.3.1).
+
+### Renamed functions
+
+[compute()](https://s3rdia.github.io/qol/reference/compute..html) and [recode()](https://s3rdia.github.io/qol/reference/recode.html) have been renamed and now have a "." at the end ([compute.()](https://s3rdia.github.io/qol/reference/compute..html) and [recode.()](https://s3rdia.github.io/qol/reference/recode.html)) to prevent masking errors in combination with dplyr. This means existing code will break if these functions where used.
+
+### [printify](https://github.com/s3rdia/printify) update
+
+The [printify](https://github.com/s3rdia/printify) functions have been updated:
+
+* [set_no_color()](https://s3rdia.github.io/printify/reference/message_helpers.html): Suppresses the color codes so that messages can be printed clean. The option is auto controlled on load via the system variable `NO_COLOR` but can also be set individually by this function. Console output in e.g. RStudio vs. output to a logging system should be handled automatically right now. Thanks goes to @TroyHernandez who pointed this out.
+* [set_up_custom_message()](https://s3rdia.github.io/printify/reference/messages.html): Waiting symbols as well as the color of the time stamps can now be customized.
+* [print_step()](https://s3rdia.github.io/printify/reference/messages.html): Now has a new `in_place` parameter, which prints the message on the same line as before, instead of in the next line. This can e.g. be used inside loops as follows.
+
+```{R, eval = FALSE}
+new_in_place_steps <- function(){
+    print_start_message()
+    
+    print_step("MAJOR", "Let's get started...")
+    
+    for (i in seq_len(10)){
+        print_step("Minor", "This is in place step [i] of 10", i = i, in_place = TRUE)
+        Sys.sleep(0.25)
+    }
+    
+    print_step("MAJOR", "Loop has ended")
+    
+    print_closing()
+}
+
+
+new_in_place_steps()
+```
+
+### Tabulation workflow
+
+[any_table()](https://s3rdia.github.io/qol/reference/any_table.html) and [export_with_style()](https://s3rdia.github.io/qol/reference/export_with_style.html): If the whole result list from these functions is passed for the `workbook` parameter, the functions now are able to extract the actual workbook from the list and run without error. Additionally if a list is passed, which is not a result list containing the workbook, the functions error and abort execution.
+
+```{R, eval = FALSE}
+# First tabulation
+result_list <- my_data |>
+           any_table(rows  = "age",
+                     style = my_style,
+                     print = FALSE)
+
+my_style <- my_style |> modify_output_style(sheet_name = "edu_year")
+
+# Pass on workbook
+my_data |> any_table(workbook = result_list[["workbook"]],
+                     rows     = "education",
+                     columns  = "year",
+                     style    = my_style,
+                     na.rm    = TRUE)
+
+# Now one can also just do
+my_data |> any_table(workbook   = result_list, # Pass the whole result list
+                     rows     = "education",
+                     columns  = "year",
+                     style    = my_style,
+                     na.rm    = TRUE)
+```
+
+[any_table()](https://s3rdia.github.io/qol/reference/any_table.html), [frequencies()](https://s3rdia.github.io/qol/reference/frequencies.html), [crosstabs()](https://s3rdia.github.io/qol/reference/crosstabs.html): If 'csv' is specified as extension in the `file name` set in the global options or the style parameter the result table will then be exported as 'csv'. Otherwise the actual workbook will be exported as `xlsx` as normal.
+
+```{R, eval = FALSE}
+my_data |> any_table(rows  = "age",
+                     style = excel_output_style(save_path = "C:/", file = "MyFile.csv"),
+                     print = FALSE)
+```
+
+### New way to transpose data
+
+[transpose_plus()](https://s3rdia.github.io/qol/reference/transpose_plus.html) can now in a wide to long transposition not only put results below each other, but also side by side.
+
+```{R, eval = FALSE}
+# Example formats
+age. <- discrete_format(
+    "Total"          = 0:100,
+    "under 18"       = 0:17,
+    "18 to under 25" = 18:24,
+    "25 to under 55" = 25:54,
+    "55 to under 65" = 55:64,
+    "65 and older"   = 65:100)
+
+sex. <- discrete_format(
+    "Total"  = 1:2,
+    "Male"   = 1,
+    "Female" = 2)
+
+# Example data frame
+my_data <- dummy_data(1000)
+
+# Transpose from long to wide and use a multilabel to generate additional categories
+long_to_wide <- my_data |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = "sex",
+                   values   = c(income, weight),
+                   formats  = list(sex = sex., age = age.),
+                   weight   = weight,
+                   na.rm    = TRUE) |>
+    rename_multi("income_Total"  = "Total",
+                 "income_Male"   = "Male",
+                 "income_Female" = "Female")
+
+# Transpose back from wide to long but this time put results side by side.
+# To do that every list entry has to have the same name. The values parameter
+# is then used to give the new value variables a name. For the expressions of
+# the new categorical variable the variable names from the first pivot list
+# entry are used.
+wide_to_long <- long_to_wide |>
+    transpose_plus(preserve = c(year, age),
+                   values   = c(income, weight),
+                   pivot    = list(sex = c("Total", "Male", "Female"),
+                                   sex = c("weight_Total", "weight_Male", "weight_Female")))
+```
+
+# [if.()](https://s3rdia.github.io/qol/reference/if_else.html) can now explicitly delete
+
+If the new `delete` keyword is passed instead of a variable assignment, the provided condition deletes observations instead of keeping them.
+
+```{R, eval = FALSE}
+subset_df <- my_data |> if.(sex == 1, delete)
+
+# Is the same as
+subset_df <- my_data |> if.(sex != 1)
+```

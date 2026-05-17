@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="qol Blog">
+<meta name="dcterms.date" content="2026-05-16">
 
-<title>qol Blog</title>
+<title>qol 1.3.1: Detailed refinements – qol Blog</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,33 +22,66 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/quarto-nav/headroom.min.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bb1cd4028f63a369ab283e072cb7d572.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-54c8f25464f32f8783bd446cee98020d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-bb1cd4028f63a369ab283e072cb7d572.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-bf88211e7fdd758f8795268712aa1b80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="site_libs/bootstrap/bootstrap-dark-b14d1f740d562c7bba7e058c0ad2b0ed.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="site_libs/bootstrap/bootstrap-bf88211e7fdd758f8795268712aa1b80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bb1cd4028f63a369ab283e072cb7d572.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-54c8f25464f32f8783bd446cee98020d.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-bb1cd4028f63a369ab283e072cb7d572.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-bf88211e7fdd758f8795268712aa1b80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-b14d1f740d562c7bba7e058c0ad2b0ed.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-bf88211e7fdd758f8795268712aa1b80.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -74,72 +109,14 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>
 p { text-align: justify; }
 </style>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
+</head>
 
-<link rel="alternate" type="application/rss+xml" title="qol Blog" href="index.xml" data-external="1"></head>
-
-<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-fixed fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -317,9 +294,9 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
-    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
     </a>
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">qol Blog</span>
     </a>
   </div>
@@ -330,11 +307,11 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./about.html"> 
+    <a class="nav-link" href="../../about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item compact">
-    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
+    <a class="nav-link" href="../../index.xml"> <i class="bi bi-rss" role="img">
 </i> 
 <span class="menu-text"></span></a>
   </li>  
@@ -374,363 +351,173 @@ window.Quarto = {
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">qol Blog</h1>
-                      </div>
+    <div class="quarto-title column-body">
+      <h1 class="title">qol 1.3.1: Detailed refinements</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">R</div>
+                <div class="quarto-category">Update</div>
+              </div>
+                  </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta">
 
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>qol Blog </p>
+            </div>
+    </div>
       
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 16, 2026</p>
+      </div>
+    </div>
     
       
     </div>
     
   
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="Ug==">R <span class="quarto-category-count">(10)</span></div><div class="category" data-category="U2hvd2Nhc2U=">Showcase <span class="quarto-category-count">(3)</span></div><div class="category" data-category="VXBkYXRl">Update <span class="quarto-category-count">(7)</span></div></div></div>
+    
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
 
 
 
 
+<p>This update doesn’t implement any completely new functions, but focuses on refining existing ones. The full release notes can be seen <a href="https://github.com/s3rdia/qol/releases/tag/v1.3.1">here</a>.</p>
+<section id="renamed-functions" class="level3">
+<h3 class="anchored" data-anchor-id="renamed-functions">Renamed functions</h3>
+<p><a href="https://s3rdia.github.io/qol/reference/compute..html">compute()</a> and <a href="https://s3rdia.github.io/qol/reference/recode.html">recode()</a> have been renamed and now have a “.” at the end (<a href="https://s3rdia.github.io/qol/reference/compute..html">compute.()</a> and <a href="https://s3rdia.github.io/qol/reference/recode.html">recode.()</a>) to prevent masking errors in combination with dplyr. This means existing code will break if these functions where used.</p>
+</section>
+<section id="printify-update" class="level3">
+<h3 class="anchored" data-anchor-id="printify-update"><a href="https://github.com/s3rdia/printify">printify</a> update</h3>
+<p>The <a href="https://github.com/s3rdia/printify">printify</a> functions have been updated:</p>
+<ul>
+<li><a href="https://s3rdia.github.io/printify/reference/message_helpers.html">set_no_color()</a>: Suppresses the color codes so that messages can be printed clean. The option is auto controlled on load via the system variable <code>NO_COLOR</code> but can also be set individually by this function. Console output in e.g.&nbsp;RStudio vs.&nbsp;output to a logging system should be handled automatically right now. Thanks goes to <span class="citation" data-cites="TroyHernandez">@TroyHernandez</span> who pointed this out.</li>
+<li><a href="https://s3rdia.github.io/printify/reference/messages.html">set_up_custom_message()</a>: Waiting symbols as well as the color of the time stamps can now be customized.</li>
+<li><a href="https://s3rdia.github.io/printify/reference/messages.html">print_step()</a>: Now has a new <code>in_place</code> parameter, which prints the message on the same line as before, instead of in the next line. This can e.g.&nbsp;be used inside loops as follows.</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>new_in_place_steps <span class="ot">&lt;-</span> <span class="cf">function</span>(){</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_start_message</span>()</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(<span class="st">"MAJOR"</span>, <span class="st">"Let's get started..."</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="fu">seq_len</span>(<span class="dv">10</span>)){</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">print_step</span>(<span class="st">"Minor"</span>, <span class="st">"This is in place step [i] of 10"</span>, <span class="at">i =</span> i, <span class="at">in_place =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>        <span class="fu">Sys.sleep</span>(<span class="fl">0.25</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_step</span>(<span class="st">"MAJOR"</span>, <span class="st">"Loop has ended"</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print_closing</span>()</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">new_in_place_steps</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="tabulation-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="tabulation-workflow">Tabulation workflow</h3>
+<p><a href="https://s3rdia.github.io/qol/reference/any_table.html">any_table()</a> and <a href="https://s3rdia.github.io/qol/reference/export_with_style.html">export_with_style()</a>: If the whole result list from these functions is passed for the <code>workbook</code> parameter, the functions now are able to extract the actual workbook from the list and run without error. Additionally if a list is passed, which is not a result list containing the workbook, the functions error and abort execution.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First tabulation</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>result_list <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>           <span class="fu">any_table</span>(<span class="at">rows  =</span> <span class="st">"age"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                     <span class="at">style =</span> my_style,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                     <span class="at">print =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>my_style <span class="ot">&lt;-</span> my_style <span class="sc">|&gt;</span> <span class="fu">modify_output_style</span>(<span class="at">sheet_name =</span> <span class="st">"edu_year"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Pass on workbook</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> <span class="fu">any_table</span>(<span class="at">workbook =</span> result_list[[<span class="st">"workbook"</span>]],</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                     <span class="at">rows     =</span> <span class="st">"education"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>                     <span class="at">columns  =</span> <span class="st">"year"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                     <span class="at">style    =</span> my_style,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                     <span class="at">na.rm    =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Now one can also just do</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> <span class="fu">any_table</span>(<span class="at">workbook   =</span> result_list, <span class="co"># Pass the whole result list</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                     <span class="at">rows     =</span> <span class="st">"education"</span>,</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>                     <span class="at">columns  =</span> <span class="st">"year"</span>,</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>                     <span class="at">style    =</span> my_style,</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>                     <span class="at">na.rm    =</span> <span class="cn">TRUE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><a href="https://s3rdia.github.io/qol/reference/any_table.html">any_table()</a>, <a href="https://s3rdia.github.io/qol/reference/frequencies.html">frequencies()</a>, <a href="https://s3rdia.github.io/qol/reference/crosstabs.html">crosstabs()</a>: If ‘csv’ is specified as extension in the <code>file name</code> set in the global options or the style parameter the result table will then be exported as ‘csv’. Otherwise the actual workbook will be exported as <code>xlsx</code> as normal.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>my_data <span class="sc">|&gt;</span> <span class="fu">any_table</span>(<span class="at">rows  =</span> <span class="st">"age"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">style =</span> <span class="fu">excel_output_style</span>(<span class="at">save_path =</span> <span class="st">"C:/"</span>, <span class="at">file =</span> <span class="st">"MyFile.csv"</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">print =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="new-way-to-transpose-data" class="level3">
+<h3 class="anchored" data-anchor-id="new-way-to-transpose-data">New way to transpose data</h3>
+<p><a href="https://s3rdia.github.io/qol/reference/transpose_plus.html">transpose_plus()</a> can now in a wide to long transposition not only put results below each other, but also side by side.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Example formats</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>age. <span class="ot">&lt;-</span> <span class="fu">discrete_format</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Total"</span>          <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">100</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"under 18"</span>       <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">17</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"18 to under 25"</span> <span class="ot">=</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">24</span>,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"25 to under 55"</span> <span class="ot">=</span> <span class="dv">25</span><span class="sc">:</span><span class="dv">54</span>,</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"55 to under 65"</span> <span class="ot">=</span> <span class="dv">55</span><span class="sc">:</span><span class="dv">64</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"65 and older"</span>   <span class="ot">=</span> <span class="dv">65</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>sex. <span class="ot">&lt;-</span> <span class="fu">discrete_format</span>(</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Total"</span>  <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Male"</span>   <span class="ot">=</span> <span class="dv">1</span>,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Female"</span> <span class="ot">=</span> <span class="dv">2</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Example data frame</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">dummy_data</span>(<span class="dv">1000</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose from long to wide and use a multilabel to generate additional categories</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>long_to_wide <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transpose_plus</span>(<span class="at">preserve =</span> <span class="fu">c</span>(year, age),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pivot    =</span> <span class="st">"sex"</span>,</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>                   <span class="at">values   =</span> <span class="fu">c</span>(income, weight),</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">formats  =</span> <span class="fu">list</span>(<span class="at">sex =</span> sex., <span class="at">age =</span> age.),</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                   <span class="at">weight   =</span> weight,</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>                   <span class="at">na.rm    =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename_multi</span>(<span class="st">"income_Total"</span>  <span class="ot">=</span> <span class="st">"Total"</span>,</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"income_Male"</span>   <span class="ot">=</span> <span class="st">"Male"</span>,</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>                 <span class="st">"income_Female"</span> <span class="ot">=</span> <span class="st">"Female"</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># Transpose back from wide to long but this time put results side by side.</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a><span class="co"># To do that every list entry has to have the same name. The values parameter</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a><span class="co"># is then used to give the new value variables a name. For the expressions of</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co"># the new categorical variable the variable names from the first pivot list</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a><span class="co"># entry are used.</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>wide_to_long <span class="ot">&lt;-</span> long_to_wide <span class="sc">|&gt;</span></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transpose_plus</span>(<span class="at">preserve =</span> <span class="fu">c</span>(year, age),</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>                   <span class="at">values   =</span> <span class="fu">c</span>(income, weight),</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>                   <span class="at">pivot    =</span> <span class="fu">list</span>(<span class="at">sex =</span> <span class="fu">c</span>(<span class="st">"Total"</span>, <span class="st">"Male"</span>, <span class="st">"Female"</span>),</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>                                   <span class="at">sex =</span> <span class="fu">c</span>(<span class="st">"weight_Total"</span>, <span class="st">"weight_Male"</span>, <span class="st">"weight_Female"</span>)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="if.-can-now-explicitly-delete" class="level1">
+<h1><a href="https://s3rdia.github.io/qol/reference/if_else.html">if.()</a> can now explicitly delete</h1>
+<p>If the new <code>delete</code> keyword is passed instead of a variable assignment, the provided condition deletes observations instead of keeping them.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>subset_df <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span> <span class="fu">if.</span>(sex <span class="sc">==</span> <span class="dv">1</span>, delete)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Is the same as</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>subset_df <span class="ot">&lt;-</span> my_data <span class="sc">|&gt;</span> <span class="fu">if.</span>(sex <span class="sc">!=</span> <span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1778882400000" data-listing-file-modified-sort="1779012054546" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1238">
-<div class="thumbnail"><a href="./posts/10. Update 1.3.1/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/10. Update 1.3.1/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/10. Update 1.3.1/index.html" class="no-external">qol 1.3.1: Detailed refinements</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/10. Update 1.3.1/index.html" class="no-external">
-This update doesn’t implement any completely new functions, but focuses on refining existing ones. The full release notes can be seen here.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/10. Update 1.3.1/index.html" class="no-external">
-<div class="listing-date">
-May 16, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1776722400000" data-listing-file-modified-sort="1776977599254" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="630">
-<div class="thumbnail"><a href="./posts/09. printify/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/09. printify/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/09. printify/index.html" class="no-external">printify 1.0.0: Custom Formatted Console Messages with Timing Support</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/09. printify/index.html" class="no-external">
-printify is a new lightweight message system relying purely on base R, meaning zero dependencies. Comes with built-in and pre styled message types and provides an easy way to create custom messages. Supports individually styled and colored text as well as timing information. Designed to make…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/09. printify/index.html" class="no-external">
-<div class="listing-date">
-Apr 21, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1776463200000" data-listing-file-modified-sort="1776521161660" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="21" data-listing-word-count-sort="4053">
-<div class="thumbnail"><a href="./posts/08. Update 1.3.0/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/08. Update 1.3.0/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/08. Update 1.3.0/index.html" class="no-external">qol 1.3.0: Update implements even more quality of life features</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/08. Update 1.3.0/index.html" class="no-external">
-This update has yet again some new functions to offer, but also enhances many existing ones. The full release notes can be seen here.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/08. Update 1.3.0/index.html" class="no-external">
-<div class="listing-date">
-Apr 18, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1774994400000" data-listing-file-modified-sort="1774991952553" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="444">
-<div class="thumbnail"><a href="./posts/07. Update 1.4/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/07. Update 1.4/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/07. Update 1.4/index.html" class="no-external">qol 1.4: Introducing Revolutionary New Reverse Pipe Operator</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/07. Update 1.4/index.html" class="no-external">
-qol is an all purpose package which wants to make descriptive evaluations easier. It offers a lot of data wrangling and tabulation functions to generate bigger and more complex tables in less time with less code. One of the main goals is to make code more readable and have a more natural workflow.…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/07. Update 1.4/index.html" class="no-external">
-<div class="listing-date">
-Apr 1, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1773183600000" data-listing-file-modified-sort="1774992015363" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7" data-listing-word-count-sort="1309">
-<div class="thumbnail"><a href="./posts/06. Update 1.2.2/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/06. Update 1.2.2/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/06. Update 1.2.2/index.html" class="no-external">qol 1.2.2: New Update Offers New Options To Compute Percentages</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/06. Update 1.2.2/index.html" class="no-external">
-The new update offers some new ways of computing different percentages. The full release notes can be seen here.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/06. Update 1.2.2/index.html" class="no-external">
-<div class="listing-date">
-Mar 11, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1770850800000" data-listing-file-modified-sort="1774381907711" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-word-count-sort="678">
-<div class="thumbnail"><a href="./posts/05. Update 1.2.1/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/05. Update 1.2.1/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/05. Update 1.2.1/index.html" class="no-external">qol 1.2.1: Update Brings More Functions, More Functionalities, More Optimizations And A Bunch Of Fixes</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/05. Update 1.2.1/index.html" class="no-external">
-Another update found its way to CRAN. Thematically it goes with the previous update, meaning more on data wrangling, adjusted and added functionalities to established functions, bug fixes and optimizations.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/05. Update 1.2.1/index.html" class="no-external">
-<div class="listing-date">
-Feb 12, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="UiUyQ1VwZGF0ZQ==" data-listing-date-sort="1768258800000" data-listing-file-modified-sort="1774381799640" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="10" data-listing-word-count-sort="1825">
-<div class="thumbnail"><a href="./posts/04. Update 1.2.0/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/04. Update 1.2.0/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/04. Update 1.2.0/index.html" class="no-external">qol 1.2.0: MASSIVE Update Makes It Its Own Ecosystem For Descriptive Evaluations And Data Wrangling</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('VXBkYXRl'); return false;">Update</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/04. Update 1.2.0/index.html" class="no-external">
-With the newest update this package brings even more SAS functionalities to R and becomes its own ecosystem. So what’s in it?
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/04. Update 1.2.0/index.html" class="no-external">
-<div class="listing-date">
-Jan 13, 2026
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="UiUyQ1Nob3djYXNl" data-listing-date-sort="1764543600000" data-listing-file-modified-sort="1774360088375" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3995">
-<div class="thumbnail"><a href="./posts/03. Further compare/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/03. Further compare/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/03. Further compare/index.html" class="no-external">A Further Comparison Of qol And SAS</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U2hvd2Nhc2U='); return false;">Showcase</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/03. Further compare/index.html" class="no-external">
-In SAS you have to assign Libraries to have access to a file path. When assigning a Library SAS directly checks, if the given path is valid. Additionally you can view all the SAS data files in the user interface, which are available in a Library:
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/03. Further compare/index.html" class="no-external">
-<div class="listing-date">
-Dec 1, 2025
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="UiUyQ1Nob3djYXNl" data-listing-date-sort="1761951600000" data-listing-file-modified-sort="1774360261002" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="16" data-listing-word-count-sort="3075">
-<div class="thumbnail"><a href="./posts/02. SAS compare/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/02. SAS compare/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/02. SAS compare/index.html" class="no-external">Powerful Tabulation Thanks To SAS Concepts</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U2hvd2Nhc2U='); return false;">Showcase</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/02. SAS compare/index.html" class="no-external">
-SAS is a flagship when it comes to creating massive descriptive tables with little effort, because it offers the right tools. This package tries to adapt some of these to also make them available in R.
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/02. SAS compare/index.html" class="no-external">
-<div class="listing-date">
-Nov 1, 2025
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="UiUyQ1Nob3djYXNl" data-listing-date-sort="1760047200000" data-listing-file-modified-sort="1774359988904" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="20" data-listing-word-count-sort="3897">
-<div class="thumbnail"><a href="./posts/01. Initial post/index.html" class="no-external">
-
-<img loading="lazy" src="./posts/01. Initial post/logo.png" class="thumbnail-image" style="height: 180px;">
-
-</a></div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./posts/01. Initial post/index.html" class="no-external">Bringing Powerful ‘SAS’ Inspired Concepts for more Efficient Bigger Outputs to ‘R’</a>
-</h3>
-<div class="listing-categories">
-
-<div class="listing-category" onclick="window.quartoListingCategory('Ug=='); return false;">R</div>
-
-<div class="listing-category" onclick="window.quartoListingCategory('U2hvd2Nhc2U='); return false;">Showcase</div>
-
-</div>
-<div class="delink listing-description"><a href="./posts/01. Initial post/index.html" class="no-external">
-The main goal is to make descriptive evaluations easier to create bigger and more complex outputs in less time with less code. Introducing format containers with multilabels, a more powerful summarise which is capable to output every possible combination of the provided grouping variables in one…
-</a></div>
-</div>
-<div class="metadata">
-<a href="./posts/01. Initial post/index.html" class="no-external">
-<div class="listing-date">
-Oct 10, 2025
-</div>
-<div class="listing-author">
-qol Blog
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">No matching items</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     // Ensure there is a toggle, if there isn't float one in the top right
