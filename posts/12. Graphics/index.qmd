@@ -1,0 +1,589 @@
+---
+title: "A new perspective on graphic design"
+image: "logo.png"
+author: "qol Blog"
+date: "2026-07-13"
+categories: [R, Showcase]
+---
+
+[qol](https://github.com/s3rdia/qol/) will implement it's own diagram framework built from scratch with version 1.4.0. Isn't this great? Or are you scratching your head and ask yourself: Why?
+
+The short answer is: Because diagrams can be created easier, faster and more beautiful than with any other framework. For the long answer keep on reading.
+
+## Status quo
+
+With every tool and every way of creating diagrams there is this one thing that bothers me a lot: You can get diagrams on screen pretty easy, but they all look like this:
+
+![](default_diagrams.png)
+
+And with all of these tools you have to fight a lot in one way or another to get some good looking diagrams out of them.
+
+### The Excel way
+
+When using Excel, you think like this about diagrams:
+
+![](excel.png)
+
+This does not only look confusing, it is confusing. Is the option in the top bar or the side panel? Or do I have to click the + symbol right next to the diagram? It could also be hidden in one of the right click menus. \
+It is very tedious work to get a graphic to look good. It is more like a game of hide and seek than anything else. You are so exhausted when you achieved "something" that you don't bother anymore to make the diagram look better.
+
+### The SAS way
+
+I really like SAS – obviously – and you think different about diagrams than you do in Excel, but the way of thinking is also kind of confusing:
+
+![](sas.png)
+
+You have so many words to type and they are often different for all the diagram types. Often they are also not very intuitive. And when you finally get the program to print a diagram on screen you receive something that looks like the diagrams shown above. Not worth the effort.
+
+### The ggplot way
+
+Now comes the elephant in the room and there will be LOTS of people disagreeing with me on that one. With ggplot you think like this about diagrams:
+
+![](ggplot.png)
+
+Pretty straight forward in comparison to the other two, isn't it? I basically have full control over everything. I layer my diagram together and then... the freaking bars draw below the background. And I get errors because I used |> but had to use +. I basically could draw another word cloud here for what you have to know and type to get something like a diagram on screen, but the final code looks to me more like this:
+
+![](ggplot2.png)
+
+With Excel and SAS I get at least a full diagram, after some tinkering, but with ggplot I feel like I have to solve a nested puzzle.
+
+### Don't get me wrong
+
+I don't say that any of these tools are bad. On the contrary: I think all of these tools have their purpose. But I would like to create higher quality diagrams with lesser effort and none of the mentioned tools is capable of doing this. To me the focus is too much on the engineering part than on the designing part. I want my full attention to be on the diagram the whole time and not on the code. When you have to fight the code, you can't clearly see were you are heading. This is the problem I like to solve.
+
+## How it should work
+
+Now that this is out of the way and everyone is fired up to jump at me, let us take a step back for a moment and close our eyes. Let us be free from any program there is and just use our imagination. When you think about designing a diagram: Is your natural thought process anything like the three examples above? It shouldn't be anywhere near these. My thought process works more like this:
+
+![](brain.png)
+
+I can create a bunch of different iterations in no time in my brain. I don't even bother about buttons and where they are, there is no army of words in the way that blocks my view and there are no layers I need to put together by myself, because I only see the flat and final image. I can fully concentrate on the visuals and what is important. \
+So my basic question for this new framework was: **Why can't I work like I think?** Wouldn't it be great to generate multiple different iterations of a graphic in no time with different visuals, without having to write much code and with the computer bothering with the engineering of the diagram and not the user? Well now it is possible.
+
+If you are wondering how these diagrams were created, here is the code:
+
+```{r, eval = FALSE}
+###############################################################################
+# First we create our dummy data and some formats
+###############################################################################
+
+my_data <- dummy_data(1000000, insert_na = FALSE)
+
+age. <- discrete_format(
+    "Total"          = 0:100,
+    "under 18"       = 0:17,
+    "18 to under 65" = 18:64,
+    "65 and older"   = 65:100)
+
+sex. <- discrete_format(
+    "Total"  = 1:2,
+    "Male"   = 1,
+    "Female" = 2)
+
+###############################################################################
+# Top left diagram
+###############################################################################
+
+# All options concerning the visual appearance of the diagram can be set globally,
+# like here, so that these options transfer accross multiple diagrams. Or you can
+# set them directly in the design_graphic() function so that they only apply
+# locally for that specific diagram.
+# The standard diagram size is set to 16x9 cm to fit perfectly in between text
+# on a DIN A4 page. I adjusted this here to fit the image above.
+set_graphic_options(graphic_width  = 11.5,
+                    graphic_height = 7)
+
+# Now without doing anything with our original data, we directly go into the
+# design process, because why bother with tedious data reshaping? We apply our
+# formats from above, the function does the rest and knows what to do.
+# The "dg_vbars" plugged into the "diagram" parameter is actually a function and
+# not a fixed term. Which means, that design_graphics() can be extended with custom
+# diagram types.
+my_data |>
+    design_graphic(axes_variables = age,
+                   segments       = sex,
+                   values         = weight,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex., age = age.),
+                   titles         = "Looks quite nice in the most basic version",
+                   footnotes      = "With titles and footnotes")
+
+# NOTE: You can also use this function with pre summarised data.
+
+###############################################################################
+# Top right diagram
+###############################################################################
+
+# Since the graphic size was set globally above, it is still active here. So if
+# I just want to have the same diagram with different colors, I can just swap out
+# the color theme. How to create one yourself is shown further below in this post.
+set_graphic_options(color_theme = "forest")
+
+my_data |>
+    design_graphic(axes_variables = age,
+                   segments       = sex,
+                   values         = weight,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex., age = age.),
+                   titles         = "Same diagram but with other colors would be great",
+                   footnotes      = "With automatic wrapping text, if you have a very long text in the titles or footnotes. The diagram adjusts to this.")
+
+###############################################################################
+# Center left diagram
+###############################################################################
+
+# As you may notice all the different options are presented in readable english.
+# The main diagram code practically doesn't change.
+set_graphic_options(reverse_colors = TRUE,
+                    color_usage    = sequential_usage)
+
+# For manual breaks in your texts, use vectors or the escape sequence /n.
+my_data |>
+    design_graphic(axes_variables = age,
+                   segments       = sex,
+                   values         = weight,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex., age = age.),
+                   titles         = c("Probably with reversed colors and lesser contrast.",
+                                      "You can also insert manual breaks."),
+                   footnotes      = "The diagram will also adjust with this.")
+
+###############################################################################
+# Center right diagram
+###############################################################################
+
+# We do a quick reset of the global diagram options here to have a fresh start.
+# If you want to draw the labels in stairs, just set the option how high the
+# steps should be.
+reset_graphic_options()
+set_graphic_options(graphic_width       = 11.5,
+                    graphic_height      = 7,
+                    color_theme         = "violet_fire",
+                    segment_line_offset = 1,
+                    primary_axes_max    = 150)
+
+# If we want to swap the variable on the axes with the one for the segments:
+# just do it, the function knows what to do.
+my_data |>
+    design_graphic(axes_variables = sex,
+                   segments       = age,
+                   values         = weight,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex., age = age.),
+                   titles         = "Or does it look better with some wild colors and labels as stairs?",
+                   footnotes      = "And swapped variables")
+
+###############################################################################
+# Bottom left diagram
+###############################################################################
+
+# If you don't like these direct labels on the segments, there is also the good
+# old legend. It can be put inside the diagram area at any position or one of
+# four presets can be applied to have the legend on the left or right side,
+# on top or at the bottom of the diagram. Values can also be rotated by any degrees,
+# just turn on the right switch.
+reset_graphic_options()
+set_graphic_options(graphic_width      = 11.5,
+                    graphic_height     = 7,
+                    segment_label_type = "legend",
+                    legend_x_pos       = "right",
+                    rotate_values      = TRUE)
+
+my_data |>
+    design_graphic(axes_variables = sex,
+                   segments       = age,
+                   values         = weight,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex., age = age.),
+                   titles         = "How about a legend?",
+                   footnotes      = "And rotated values. Additionally if values don't fit in the bars, they will be displayed outside.")
+
+###############################################################################
+# Bottom right diagram
+###############################################################################
+
+# This one is just to show some of the over 150 available parameters. So as with
+# other frameworks you can have many words on screen for just a single diagram too.
+# But they are more readable and are all just simple sliders and switches. You don't
+# need complex coding skills to style your diagrams. No need to search for a button,
+# no need to decipher cryptic vocabulary and no need to bother which function comes
+# in which order and whether to use this + thing or that ~. Just put the option
+# in here and you are good to go. The full concentration is on the diagram and
+# not on the code.
+set_graphic_options(legend_x_pos             = 1,
+                    legend_y_pos             = "bottom",
+                    legend_columns           = 4,
+                    color_theme              = "sunset",
+                    bar_overlap              = 50,
+                    space_between_bars       = -25,
+                    guiding_lines_y          = TRUE,
+                    display_values           = FALSE,
+                    primary_axes_max         = 120,
+                    primary_axes_steps       = 3,
+                    graphic_background_color = "#054000",
+                    diagram_background_color = "#AAFFAA",
+                    primary_axes_color       = "#FFFFFF",
+                    title_font_color         = "#FFFFFF",
+                    footnote_font_color      = "#FFFFFF",
+                    primary_axes_font_color  = "#FFFFFF",
+                    variable_axes_font_color = "#FFFFFF",
+                    label_font_color         = "#FFFFFF",
+                    origin_font_color        = "#FFFFFF",
+                    other_font_color         = "#FFFFFF")
+
+my_data |>
+    design_graphic(axes_variables = sex,
+                   segments       = age,
+                   values         = weight,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex., age = age.),
+                   titles         = "Or lets just go completely crazy",
+                   footnotes      = "And see what other parameters there are to adjust.")
+```
+
+To see what parameters are already in the current alpha version, you can look at the help files of the following functions:
+
+```{r, eval = FALSE}
+?design_graphic
+?graphic_visuals
+?graphic_axes
+?graphic_dimensions
+?graphic_output
+?graphic_fine_tuning
+```
+
+## And what else?
+
+Until now we only touched visual options but the design_graphic() code stayed mostly the same the whole time. Seems fishy. Well that is the fun part that comes right now. There are lots of different scenarios on how you want a diagram to look like. What if you want to have more than one variable on the axes? Like this:
+
+![](multi_axes.png){fig-align="center"}
+
+Or have multiple variables as segments:
+
+![](multi_segments.png){fig-align="center"}
+
+Or have a multi layered axes:
+
+![](multi_axes_nested.png){fig-align="center"}
+
+Believe me, there is nothing special to do to achieve these effects. You don't need to be a programmer or study the function long and hard to get something visually appealing on screen. But let us look at the code again:
+
+```{r, eval = FALSE}
+# First we create another format, to have the character values in order
+education. <- discrete_format(
+    "Low"    = "low",
+    "Middle" = "middle",
+    "High"   = "high")
+
+###############################################################################
+# Top diagram
+###############################################################################
+
+# Then let us apply some different formatting again
+reset_graphic_options()
+set_graphic_options(color_theme             = "aurora",
+                    primary_values_decimals = 0,
+                    segment_label_group     = 6,
+                    segment_line_length     = 2,
+                    segment_line_type       = "dotted",
+                    rotate_values           = TRUE)
+
+# To set variable expressions beside each other on the axes, we just pass a vector
+# of variable names into the parameter.
+# We can also just put in a different statistic, the value axes will adjust
+# accordingly.
+# To add custom texts just add a textbox in the "add_texts" parameter.
+my_data |>
+    design_graphic(axes_variables = c(age, education),
+                   segments       = sex,
+                   values         = weight,
+                   statistics     = sum,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex., age = age., education = education.),
+                   titles         = "Multiple variables side by side can be achieved by passing a vector",
+                   footnotes      = "Also note the custom text to the right.",
+                   add_texts      = add_textbox("Degree of education", 11, 1, font_face = "bold"))
+
+###############################################################################
+# Center diagram
+###############################################################################
+
+# Playing around with the different sliders and switches can actually be fun
+set_graphic_options(primary_axes_max      = 90000,
+                    primary_axes_steps    = 3,
+                    segment_label_group   = 2,
+                    rotate_segment_labels = TRUE)
+
+# To set variable expressions beside each other as segments, we just do the same
+# with the segments parameter as before with the axes.
+my_data |>
+    design_graphic(axes_variables = age,
+                   segments       = c(sex, education),
+                   values         = weight,
+                   statistics     = sum,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex., age = age., education = education.),
+                   titles         = "Multiple variables side by side can be achieved by passing a vector",
+                   footnotes      = "Also note the custom text to the right.",
+                   add_texts      = add_textbox("Degree of education", 7, 8, 3, font_face = "bold"))
+
+###############################################################################
+# Bottom diagram
+###############################################################################
+
+# Let us create a format without total first to have a bit more visual space
+sex2. <- discrete_format(
+    "Male"   = 1,
+    "Female" = 2)
+
+# We try out a different style again, because why not?
+set_graphic_options(diagram_height     = 6.8,
+                    color_usage        = high_contrast_usage,
+                    primary_axes_max   = 20000,
+                    primary_axes_scale = 0.001,
+                    segment_label_type = "legend",
+                    legend_y_pos       = "top",
+                    legend_columns     = 3,
+                    rotate_values      = TRUE)
+
+# To have a multi layered variable axes you just "add up" the variables with a
+# + symbol in between them. There is nothing more to it. You can nest as many
+# variables as you like – of course at some point it doesn't make sense anymore.
+# Additionally we can add as many custom texts as we like, just put some textboxes
+# inside a list.
+my_data |>
+    design_graphic(axes_variables = "age + education",
+                   segments       = sex,
+                   values         = weight,
+                   statistics     = sum,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex2., age = age., education = education.),
+                   titles         = "Nesting categories works with a + symbol",
+                   footnotes      = "That was quite easy.",
+                   add_texts      = list(add_textbox("Degree of education", 6.8, 1, font_face = "bold"),
+                                         add_textbox("in thousand", 0.2, 8.2, 1),
+                                         add_textbox("HAVE AS MANY TEXTS AS YOU LIKE", 8, 7.5,
+                                                     font_color = "#FF0000",
+                                                     font_size  = 20,
+                                                     font_face  = "italic",
+                                                     rotation   = -45)))
+```
+And again the function barely moved, but we got all these vastly different diagrams. You want to have variables side by side? Just put them in a vector side by side. You want them to be nested? Just put the + symbol in between them so they "add up". \
+Even if you use the function for the first time and just put in some variables to get something on screen, the diagram already looks visually appealing. With the magic of some switches and sliders you get something professional looking in no time. And it works like you think.
+
+## Multiple diagrams
+
+So far so good. But how about creating multiple diagrams at once depending on another variable? I got you, no problem.
+
+![](grid.png){fig-align="center"}
+
+But how do we do this? Do we need to write some crazy loops? Do we need to plug in additional functions? Do we need to hit a thousand switches to make this possible? It actually isn't that hard. We barely need to change the already established code. See for yourself:
+
+```{r, eval = FALSE}
+reset_graphic_options()
+
+# We use a format again. In our dummy data are only the expressions 1-16 for the
+# different states. But we would like to create diagrams for Germany as a whole,
+# as well as the East and West on the fly in one go. So just write it down here.
+state. <- discrete_format(
+    "Germany"                       = 1:16,
+    "Schleswig-Holstein"            = 1,
+    "Hamburg"                       = 2,
+    "Lower Saxony"                  = 3,
+    "Bremen"                        = 4,
+    "North Rhine-Westphalia"        = 5,
+    "Hesse"                         = 6,
+    "Rhineland-Palatinate"          = 7,
+    "Baden-Württemberg"             = 8,
+    "Bavaria"                       = 9,
+    "Saarland"                      = 10,
+    "West"                          = 1:10,
+    "Berlin"                        = 11,
+    "Brandenburg"                   = 12,
+    "Mecklenburg-Western Pomerania" = 13,
+    "Saxony"                        = 14,
+    "Saxony-Anhalt"                 = 15,
+    "Thuringia"                     = 16,
+    "East"                          = 11:16)
+
+# If we leave the options as they are, we would produce single diagrams for all
+# the different states. But we can also have them in one big grid by just hitting
+# the right switch again.
+set_graphic_options(by_as_grid   = TRUE,
+                    grid_columns = 2,
+                    color_theme  = "violet_gold",
+                    color_usage  = high_contrast_usage,
+                    primary_values_decimals = 0)
+
+# In the main function we don't have to do anything fancy. Just put the desired
+# variable name in the "by" parameter, set the format and you are good to go.
+# In the titles and footnotes you can use the special key word [by_var] to display
+# the individual variable expressions.
+my_data |>
+    design_graphic(axes_variables = age,
+                   segments       = sex,
+                   values         = weight,
+                   by             = state,
+                   statistics     = sum,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex2., age = age., state = state.),
+                   titles         = "This diagram is for: [by_var]",
+                   footnotes      = "And it just works as easy as you thought it would.")
+```
+
+By the way: You want multiple different by variables at once? Just plug in a vector of variable names.
+
+## Interactivity
+
+Static diagrams are nice, but interactive ones are fancier – even though there often is no gain. So we need another framework for this? Not for basic interactivity. By now you should know the deal: interactivity is just one switch away.
+
+<iframe src="interactive.html" style="width: 100%; aspect-ratio: 16 / 9; border: none;" scrolling="no"></iframe>
+
+This is by the way another point that bothers me a lot with other frameworks: When I create a static diagram, with which I am really happy, and then port it into an interactive version, it always looks somehow strange. It just isn't the same. With this framework the static and interactive versions have exacly the same look and feel.
+
+```{r, eval = FALSE}
+reset_graphic_options()
+
+# To make a diagram interactive, just hit the switch, set a file path and name
+# to where the final graphic should be saved and you are ready to go again.
+set_graphic_options(color_theme = "violet_fire",
+                    interactive = TRUE,
+                    save_path   = "C:/",
+                    file        = "interactive.html")
+
+# Alright the code is not EXACLY the same, because I decided to use a more meaningful
+# label for the tooltips instead of just the variable name, but hey, this is also
+# done pretty easy.
+my_data |>
+    design_graphic(axes_variables = sex,
+                   segments       = age,
+                   values         = weight,
+                   statistics     = sum,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex2., age = age.),
+                   var_labels     = list(weight = "Population"),
+                   titles         = "With mouse over effects and tooltips",
+                   footnotes      = "Everything else is handled by the function.")
+
+# The graphic itself is then implemented with an iframe like this:
+# <iframe src="interactive.html" style="width: 100%; aspect-ratio: 16 / 9; border: none;" scrolling="no"></iframe>
+```
+
+Now there is one rabbit left in the hat: What do interactive graphics with by variables look like? The answer is: like this:
+
+<iframe src="interactive2.html" style="width: 100%; aspect-ratio: 16 / 9.5; border: none;" scrolling="no"></iframe>
+
+```{r, eval = FALSE}
+reset_graphic_options()
+
+# We just use another format to set up an even percentage scale
+age2. <- discrete_format(
+    "under 18"       = 0:17,
+    "18 to under 35" = 18:34,
+    "35 to under 55" = 35:54,
+    "55 to under 65" = 55:64,
+    "65 and older"   = 65:100)
+
+# "interactive" + "by_as_grid" export the diagrams in one file in which they can
+# be switched via a drop down list. The rest is pure cosmetic.
+# If you leave "by_as_grid = FALSE" you will receive multiple files per by variable
+# expression.
+set_graphic_options(color_theme        = "steel",
+                    primary_axes_max   = 40,
+                    primary_axes_steps = 4,
+                    segment_label_type = "legend",
+                    guiding_lines_y    = TRUE,
+                    interactive        = TRUE,
+                    by_as_grid         = TRUE,
+                    save_path          = "C:/",
+                    file               = "interactive2.html")
+
+# Same code, you know it by now
+my_data |>
+    design_graphic(axes_variables = sex,
+                   segments       = age,
+                   values         = weight,
+                   by             = state,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex2., age = age2., state = state.),
+                   var_labels     = list(weight_pct = "Population"),
+                   titles         = "Look the drop down list right above",
+                   footnotes      = "This footnote is for: [by_var]")
+```
+
+## Adding a custom theme
+
+You saw a few different color themes up in the different diagrams, but which are there and how are they implemented? The following ones are built in:
+
+![](themes.png){fig-align="center"}
+
+You can also have a more specific look at the single themes:
+
+![](colors.png){fig-align="center"}
+
+But since there are so many different possibilities to put colors together the built in ones will never be enough. So there has to be an easy way to set up new ones. Let us jump right into the code:
+
+```{r, eval = FALSE}
+# The built in themes can be displayed like this
+display_themes()
+
+# If you want to know the specific color codes of a theme and also show which
+# colors are used in case values are drawn outside the segments use this function.
+display_colors("aurora")
+
+# If you want to add a theme yourself, it can be as easy as this
+add_color_theme("rainbow",  rainbow(20))
+add_color_theme("rainbow2", rainbow(10), font_outside_colors = "base")
+
+# Instead of "rainbow()" you of course pass in a vector of hex color codes
+```
+
+![](rainbow.png){fig-align="center"}
+![](rainbow2.png){fig-align="center"}
+
+If you add a theme like this, the colors for the values outside the segments are always set to black while the inner colors result to black or white depending on the relative luminance of the base color. When using the keyword "base" as font color, you receive colored values instead of black ones without the need to hack in the colors again. The theme is then ready to be used.
+
+```{r, eval = FALSE}
+reset_graphic_options()
+
+# Set the new theme globally
+set_graphic_options(color_theme = "rainbow2")
+
+# And you are ready to go
+my_data |>
+    design_graphic(axes_variables = sex,
+                   segments       = age,
+                   values         = weight,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex2., age = age.),
+                   titles         = "Looking at the colors, this looks almost like the diagrams at the very top",
+                   footnotes      = "But overall still much better in my eyes")
+
+# You can not only call a theme by it's name, you can also get the theme from
+# the global theme list and plug the color theme directly into the corresponding
+# parameter.
+rainbow <- get_theme_colors("rainbow")
+
+my_data |>
+    design_graphic(axes_variables = sex,
+                   segments       = age,
+                   values         = weight,
+                   diagram        = dg_vbars,
+                   formats        = list(sex = sex2., age = age.),
+                   visuals        = graphic_visuals(color_theme = rainbow),
+                   titles         = "Looking at the colors, this looks almost like the diagrams at the very top",
+                   footnotes      = "But overall still much better in my eyes")
+```
+
+![](rainbow_chart.png){fig-align="center"}
+
+![](rainbow_chart2.png){fig-align="center"}
+
+## State of the art
+
+This framework – as of now – has reached an alpha stage. Which means there are things one can actually work with and that work fairly robust, but there are also some things missing and the function can error when it shouldn't. \
+As of now one can only create vertical bar charts, but there are over 150 cosmetic parameters to play with. I implemented a lot of unit tests so that over 90 % of the code is covered. Which means, if I implement new features, I make sure that nothing else breaks unintentional. But of course there can be breaking changes down the road.
+
+During this alpha stage I will mainly concentrate on building multiple different diagram types and add parameters along the way. How many built in diagram types there will be and which ones, I don't know, but I will focus on the most common/useful ones – in my eyes. Of course making this thing more robust is always on my todo list as well as optimizing things as I stumble upon them.
+
+So stay tuned, there is more to come in the future.
