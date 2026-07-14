@@ -9,7 +9,7 @@
 <link>https://your-website-url.example.com/</link>
 <atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog for the package qol</description>
-<generator>quarto-1.9.37</generator>
+<generator>quarto-1.9.38</generator>
 <lastBuildDate>Sun, 12 Jul 2026 22:00:00 GMT</lastBuildDate>
 <item>
   <title>A new perspective on graphic design</title>
@@ -181,7 +181,7 @@ background-color: null;
 font-style: inherit;"># All options concerning the visual appearance of the diagram can be set globally,</span></span>
 <span id="cb1-23"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># like here, so that these options transfer accross multiple diagrams. Or you can</span></span>
+font-style: inherit;"># like here, so that these options transfer across multiple diagrams. Or you can</span></span>
 <span id="cb1-24"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># set them directly in the design_graphic() function so that they only apply</span></span>
@@ -221,7 +221,7 @@ background-color: null;
 font-style: inherit;"># The "dg_vbars" plugged into the "diagram" parameter is actually a function and</span></span>
 <span id="cb1-35"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># not a fixed term. Which means, that design_graphics() can be extended with custom</span></span>
+font-style: inherit;"># not a fixed term. Which means, that design_graphic() can be extended with custom</span></span>
 <span id="cb1-36"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># diagram types.</span></span>
@@ -363,7 +363,7 @@ font-style: inherit;">color_usage    =</span> sequential_usage)</span>
 <span id="cb1-74"></span>
 <span id="cb1-75"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># For manual breaks in your texts, use vectors or the escape sequence /n.</span></span>
+font-style: inherit;"># For manual breaks in your texts, use vectors or the escape sequence \n.</span></span>
 <span id="cb1-76">my_data <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span></span>
@@ -1471,7 +1471,7 @@ background-color: null;
 font-style: inherit;"># variable name in the "by" parameter, set the format and you are good to go.</span></span>
 <span id="cb4-38"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># In the titles and footnotes you can use the special key word [by_var] to display</span></span>
+font-style: inherit;"># In the titles and footnotes you can use the special keyword [by_var] to display</span></span>
 <span id="cb4-39"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># the individual variable expressions.</span></span>
@@ -2014,6 +2014,7 @@ font-style: inherit;">"But overall still much better in my eyes"</span>)</span><
 <p>This framework – as of now – has reached an alpha stage. Which means there are things one can actually work with and that work fairly robust, but there are also some things missing and the function can error when it shouldn’t.<br>
 As of now one can only create vertical bar charts, but there are over 150 cosmetic parameters to play with. I implemented a lot of unit tests so that over 90 % of the code is covered. Which means, if I implement new features, I make sure that nothing else breaks unintentional. But of course there can be breaking changes down the road.</p>
 <p>During this alpha stage I will mainly concentrate on building multiple different diagram types and add parameters along the way. How many built in diagram types there will be and which ones, I don’t know, but I will focus on the most common/useful ones – in my eyes. Of course making this thing more robust is always on my todo list as well as optimizing things as I stumble upon them.</p>
+<p>This new framework lives on my GitHub repository under the “graphics” branch: <a href="https://github.com/s3rdia/qol">https://github.com/s3rdia/qol</a></p>
 <p>So stay tuned, there is more to come in the future.</p>
 
 

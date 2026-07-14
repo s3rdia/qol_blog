@@ -85,7 +85,7 @@ sex. <- discrete_format(
 ###############################################################################
 
 # All options concerning the visual appearance of the diagram can be set globally,
-# like here, so that these options transfer accross multiple diagrams. Or you can
+# like here, so that these options transfer across multiple diagrams. Or you can
 # set them directly in the design_graphic() function so that they only apply
 # locally for that specific diagram.
 # The standard diagram size is set to 16x9 cm to fit perfectly in between text
@@ -97,7 +97,7 @@ set_graphic_options(graphic_width  = 11.5,
 # design process, because why bother with tedious data reshaping? We apply our
 # formats from above, the function does the rest and knows what to do.
 # The "dg_vbars" plugged into the "diagram" parameter is actually a function and
-# not a fixed term. Which means, that design_graphics() can be extended with custom
+# not a fixed term. Which means, that design_graphic() can be extended with custom
 # diagram types.
 my_data |>
     design_graphic(axes_variables = age,
@@ -137,7 +137,7 @@ my_data |>
 set_graphic_options(reverse_colors = TRUE,
                     color_usage    = sequential_usage)
 
-# For manual breaks in your texts, use vectors or the escape sequence /n.
+# For manual breaks in your texts, use vectors or the escape sequence \n.
 my_data |>
     design_graphic(axes_variables = age,
                    segments       = sex,
@@ -417,7 +417,7 @@ set_graphic_options(by_as_grid   = TRUE,
 
 # In the main function we don't have to do anything fancy. Just put the desired
 # variable name in the "by" parameter, set the format and you are good to go.
-# In the titles and footnotes you can use the special key word [by_var] to display
+# In the titles and footnotes you can use the special keyword [by_var] to display
 # the individual variable expressions.
 my_data |>
     design_graphic(axes_variables = age,
@@ -585,5 +585,7 @@ This framework – as of now – has reached an alpha stage. Which means there a
 As of now one can only create vertical bar charts, but there are over 150 cosmetic parameters to play with. I implemented a lot of unit tests so that over 90 % of the code is covered. Which means, if I implement new features, I make sure that nothing else breaks unintentional. But of course there can be breaking changes down the road.
 
 During this alpha stage I will mainly concentrate on building multiple different diagram types and add parameters along the way. How many built in diagram types there will be and which ones, I don't know, but I will focus on the most common/useful ones – in my eyes. Of course making this thing more robust is always on my todo list as well as optimizing things as I stumble upon them.
+
+This new framework lives on my GitHub repository under the "graphics" branch: [https://github.com/s3rdia/qol](https://github.com/s3rdia/qol)
 
 So stay tuned, there is more to come in the future.
