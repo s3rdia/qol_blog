@@ -1,0 +1,171 @@
+---
+title: "qol 1.3.3: Yet another 'if' and some other additions"
+image: "logo.png"
+author: "qol Blog"
+date: "2026-05-16"
+categories: [R, Update]
+---
+
+Version 1.3.3 has a new function and some new functionalities in its backpack. The full release notes can be seen [here](https://github.com/s3rdia/qol/releases/tag/v1.3.3).
+
+### Yet another 'if'
+
+This time the new [ifelse_multi](https://s3rdia.github.io/qol/reference/ifelse_multi.html) is able to evaluate multiple nested if-else statements in one go. But that is not all, because the function comes with a twist: Conditions can be written in SAS like syntax. The conditions therefore have to be passed as characters which enables them to be parsed and translated before evaluation.
+
+This twist brings multiple new ways to write conditions, like:
+
+* Ranges: Instead of "age >= 15 & age < 65" you can write "15 <= age < 65".
+* You can write "and/or" instead of "&/|".
+* The "in" (or "not in") keyword can be used the SAS way, e.g.: "age in (10 20 30 40 50)"
+* Select strings starting with (:text), ending with (text:) or containing (:text:) a specific text.
+* Use SAS makro variables as placeholders with the &.
+* Check for NA values with "== ." or "!= .".
+
+The [if.](https://s3rdia.github.io/qol/reference/if_else.html) and [else_if.](https://s3rdia.github.io/qol/reference/if_else.html) functions have been updated to also take in the new character style conditions.
+
+```{R, eval = FALSE}
+# Example data frame
+my_data <- dummy_data(100)
+
+# Simple ifelse statement
+my_data[["under18"]]    <- my_data |> ifelse_multi(" age < 18 " = 1,       else. = 0)
+my_data[["middle_age"]] <- my_data |> ifelse_multi(" 15 <= age < 65 " = 1, else. = 0)
+
+my_data[["age_gr"]] <- my_data |>
+    ifelse_multi(" age < 18 "       = "under 18",
+                 " 18 <= age < 25 " = "18 to under 25",
+                 " 25 <= age < 50 " = "25 to under 50",
+                 " 50 <= age < 65 " = "50 to under 65",
+                 " 65 <= age      " = "65 and more")
+
+# With overarching do_if condition
+my_data[["age_gr_edu"]] <- my_data |>
+    ifelse_multi(do_if = " education in ('middle' 'high') ",
+                     " age < 18 "       = "under 18",
+                     " 18 <= age < 25 " = "18 to under 25",
+                     " 25 <= age < 50 " = "25 to under 50",
+                     " 50 <= age < 65 " = "50 to under 65",
+                     " 65 <= age      " = "65 and more")
+
+# And/or translation
+my_data[["and"]] <- my_data |> ifelse_multi(" age > 65 and sex = 1 " = 1,
+                                            " age > 65 and sex = 2 " = 2,
+                                            else. = 0)
+
+my_data[["or"]] <- my_data |> ifelse_multi(" age > 65 or sex = 1 " = 1,
+                                           " age > 65 or sex = 2 " = 2,
+                                           else. = 0)
+
+# "in" translation
+my_data[["in"]] <- my_data |> ifelse_multi(" age in (1 10 25 65 90) " = 1, else. = 0)
+
+# Colon translation: start/ends with and contains
+my_data[["start"]]    <- my_data |> ifelse_multi(" education == 'lo:' "  = 1, else. = 0)
+my_data[["end"]]      <- my_data |> ifelse_multi(" education == ':le' "  = 1, else. = 0)
+my_data[["contains"]] <- my_data |> ifelse_multi(" education == ':ig:' " = 1, else. = 0)
+
+# Macro variables can be integrated in any place
+variable     <- "age"
+age_to_check <- 18
+value_to_set <- "under 18"
+
+my_data[["macro"]] <- my_data |>
+    ifelse_multi(" &variable < &age_to_check " = "&value_to_set",
+                 else.                         = "other")
+
+# NA translation
+my_data[["NA"]]    <- my_data |> ifelse_multi(" age == .       " = 1, else. = 0)
+my_data[["notNA"]] <- my_data |> ifelse_multi(" education != . " = 1, else. = 0)
+
+# Pass in existing variable values
+my_data[["income_mix"]] <- my_data |>
+    ifelse_multi(" age < 50 " = income, else. = expenses)
+```
+
+### [any_table](https://s3rdia.github.io/qol/reference/any_table.html) received even more possibilities
+
+The function now has the built in possibility to [compute.](https://s3rdia.github.io/qol/reference/compute..html) new individual calculated variables before tabulation. Which means the function now summarises the data, then allows the [compute.](https://s3rdia.github.io/qol/reference/compute..html) in between and then tabulates. If you ever had to pre summarise and calculate variables before tabulation, these extra steps are now potentially gone.\
+To be able to order the newly generated variables the `order_by` parameter can now take in a vector of variable names, to have full control over every column.
+
+There is another new functionality: It is now possible to specify per variable which `statistics` should be output. Instead of passing a vector of `statistics` into the `statistics` parameter, it can now also be a named list of variable names, where the list entry names are the `statistics` and the list elements the variable names or vectors of variable names. This allows you to select what you want before tabulation, so there is no need to throw out the stuff you don't need afterwards. This is also possible with [summarise_plus](https://s3rdia.github.io/qol/reference/summarise_plus.html).
+
+And one last thing: Variable combinations in rows, columns and types can now also take in variable combinations inside the brackets like “state + (age, sex + education, first_person)”. But therefore the "," between entries inside the brackets is now mandatory. For [summarise_plus](https://s3rdia.github.io/qol/reference/summarise_plus.html) this now also works in the `types` parameter.
+
+```{R, eval = FALSE}
+# Example data frame
+my_data <- dummy_data(1000)
+
+# Formats
+age. <- discrete_format(
+    "Total"          = 0:100,
+    "under 18"       = 0:17,
+    "18 to under 25" = 18:24,
+    "25 to under 55" = 25:54,
+    "55 to under 65" = 55:64,
+    "65 and older"   = 65:100)
+
+sex. <- discrete_format(
+    "Total"  = 1:2,
+    "Male"   = 1,
+    "Female" = 2)
+
+# Individual calculations
+my_data |> any_table(rows       = c("age + year"),
+                     columns    = "sex",
+                     values     = "probability",
+                     statistics = c("sum", "sum_wgt"),
+                     compute    = list(percent_pct = probability_sum * 100 / sum_wgt,
+                                       square_pct  = percent_pct ^ 2),
+                     weight     = weight,
+                     formats    = list(sex = sex., age = age.),
+                     na.rm      = TRUE)
+
+# Select specific statistics for specific variables
+my_data |> any_table(rows       = "sex",
+                     columns    = "year",
+                     statistics = list("sum"       = c(weight, income),
+                                       "pct_group" = balance),
+                     formats    = list(sex = sex.))
+
+# You can also select repeating combinations faster like this
+combi_types <- my_data |>
+    summarise_plus(class      = c(year, sex, age, education),
+                   values     = weight,
+                   statistics = "sum",
+                   formats    = list(sex = sex.,
+                                     age = age.),
+                   types      = "year + sex + (age, age + education, education)",
+                   nesting    = "all",
+                   na.rm      = TRUE)
+
+# Select specific statistics for specific variables
+specific_stats <- my_data |>
+    summarise_plus(class      = c(year, sex),
+                   statistics = list("sum"       = c(weight, income),
+                                     "mean"      = expenses,
+                                     "pct_group" = balance),
+                   formats    = list(sex = sex.),
+                   na.rm      = TRUE)
+```
+
+### Macro variables in filepaths
+
+Just a quick one: SAS like macro variables can now be used inside all filepath and -name parameters within this package.
+
+```{R, eval = FALSE}
+# Example data frame
+my_data <- dummy_data(100)
+
+# Variable used as macro variables
+YEAR <- 2026
+FILE <- "Sales &YEAR..xlsx"
+
+# Add them in the filepaths and export
+my_style <- excel_output_style(save_path = "C:/&YEAR/", file = FILE)
+
+my_data |> export_with_style(style = my_style)
+```
+
+### New background
+
+One note about a change in default behaviour: Every Excel output now receives an all white background, instead of unfilled. To make this work efficiently the minimum Version of [openxlsx2](https://github.com/JanMarvin/openxlsx2) has been raised to 1.28, which optimizes this process.
