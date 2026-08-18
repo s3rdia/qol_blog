@@ -96,14 +96,14 @@ set_graphic_options(graphic_width  = 11.5,
 # Now without doing anything with our original data, we directly go into the
 # design process, because why bother with tedious data reshaping? We apply our
 # formats from above, the function does the rest and knows what to do.
-# The "dg_vbars" plugged into the "diagram" parameter is actually a function and
+# The "dg_vertical_bars" plugged into the "diagram" parameter is actually a function and
 # not a fixed term. Which means, that design_graphic() can be extended with custom
 # diagram types.
 my_data |>
     design_graphic(axes_variables = age,
                    segments       = sex,
                    values         = weight,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex., age = age.),
                    titles         = "Looks quite nice in the most basic version",
                    footnotes      = "With titles and footnotes")
@@ -123,7 +123,7 @@ my_data |>
     design_graphic(axes_variables = age,
                    segments       = sex,
                    values         = weight,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex., age = age.),
                    titles         = "Same diagram but with other colors would be great",
                    footnotes      = "With automatic wrapping text, if you have a very long text in the titles or footnotes. The diagram adjusts to this.")
@@ -142,7 +142,7 @@ my_data |>
     design_graphic(axes_variables = age,
                    segments       = sex,
                    values         = weight,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex., age = age.),
                    titles         = c("Probably with reversed colors and lesser contrast.",
                                       "You can also insert manual breaks."),
@@ -168,7 +168,7 @@ my_data |>
     design_graphic(axes_variables = sex,
                    segments       = age,
                    values         = weight,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex., age = age.),
                    titles         = "Or does it look better with some wild colors and labels as stairs?",
                    footnotes      = "And swapped variables")
@@ -193,7 +193,7 @@ my_data |>
     design_graphic(axes_variables = sex,
                    segments       = age,
                    values         = weight,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex., age = age.),
                    titles         = "How about a legend?",
                    footnotes      = "And rotated values. Additionally if values don't fit in the bars, they will be displayed outside.")
@@ -235,7 +235,7 @@ my_data |>
     design_graphic(axes_variables = sex,
                    segments       = age,
                    values         = weight,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex., age = age.),
                    titles         = "Or lets just go completely crazy",
                    footnotes      = "And see what other parameters there are to adjust.")
@@ -298,7 +298,7 @@ my_data |>
                    segments       = sex,
                    values         = weight,
                    statistics     = sum,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex., age = age., education = education.),
                    titles         = "Multiple variables side by side can be achieved by passing a vector",
                    footnotes      = "Also note the custom text to the right.",
@@ -321,7 +321,7 @@ my_data |>
                    segments       = c(sex, education),
                    values         = weight,
                    statistics     = sum,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex., age = age., education = education.),
                    titles         = "Multiple variables side by side can be achieved by passing a vector",
                    footnotes      = "Also note the custom text to the right.",
@@ -356,7 +356,7 @@ my_data |>
                    segments       = sex,
                    values         = weight,
                    statistics     = sum,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex2., age = age., education = education.),
                    titles         = "Nesting categories works with a + symbol",
                    footnotes      = "That was quite easy.",
@@ -425,7 +425,7 @@ my_data |>
                    values         = weight,
                    by             = state,
                    statistics     = sum,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex2., age = age., state = state.),
                    titles         = "This diagram is for: [by_var]",
                    footnotes      = "And it just works as easy as you thought it would.")
@@ -459,7 +459,7 @@ my_data |>
                    segments       = age,
                    values         = weight,
                    statistics     = sum,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex2., age = age.),
                    var_labels     = list(weight = "Population"),
                    titles         = "With mouse over effects and tooltips",
@@ -504,7 +504,7 @@ my_data |>
                    segments       = age,
                    values         = weight,
                    by             = state,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex2., age = age2., state = state.),
                    var_labels     = list(weight_pct = "Population"),
                    titles         = "Look the drop down list right above",
@@ -554,7 +554,7 @@ my_data |>
     design_graphic(axes_variables = sex,
                    segments       = age,
                    values         = weight,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex2., age = age.),
                    titles         = "Looking at the colors, this looks almost like the diagrams at the very top",
                    footnotes      = "But overall still much better in my eyes")
@@ -568,7 +568,7 @@ my_data |>
     design_graphic(axes_variables = sex,
                    segments       = age,
                    values         = weight,
-                   diagram        = dg_vbars,
+                   diagram        = dg_vertical_bars,
                    formats        = list(sex = sex2., age = age.),
                    visuals        = graphic_visuals(color_theme = rainbow),
                    titles         = "Looking at the colors, this looks almost like the diagrams at the very top",
