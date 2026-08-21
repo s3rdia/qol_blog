@@ -495,6 +495,7 @@ set_graphic_options(color_theme        = "steel",
                     guiding_lines_y    = TRUE,
                     interactive        = TRUE,
                     by_as_grid         = TRUE,
+                    tooltip_behaviour  = "static",
                     save_path          = "C:/",
                     file               = "interactive2.html")
 

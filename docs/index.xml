@@ -3082,39 +3082,44 @@ background-color: null;
 font-style: inherit;">TRUE</span>,</span>
 <span id="cb6-22">                    <span class="at" style="color: #657422;
 background-color: null;
+font-style: inherit;">tooltip_behaviour  =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"static"</span>,</span>
+<span id="cb6-23">                    <span class="at" style="color: #657422;
+background-color: null;
 font-style: inherit;">save_path          =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"C:/"</span>,</span>
-<span id="cb6-23">                    <span class="at" style="color: #657422;
+<span id="cb6-24">                    <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">file               =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"interactive2.html"</span>)</span>
-<span id="cb6-24"></span>
-<span id="cb6-25"><span class="co" style="color: #5E5E5E;
+<span id="cb6-25"></span>
+<span id="cb6-26"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># Same code, you know it by now</span></span>
-<span id="cb6-26">my_data <span class="sc" style="color: #5E5E5E;
+<span id="cb6-27">my_data <span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|&gt;</span></span>
-<span id="cb6-27">    <span class="fu" style="color: #4758AB;
+<span id="cb6-28">    <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">design_graphic</span>(<span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">axes_variables =</span> sex,</span>
-<span id="cb6-28">                   <span class="at" style="color: #657422;
-background-color: null;
-font-style: inherit;">segments       =</span> age,</span>
 <span id="cb6-29">                   <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">values         =</span> weight,</span>
+font-style: inherit;">segments       =</span> age,</span>
 <span id="cb6-30">                   <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">by             =</span> state,</span>
+font-style: inherit;">values         =</span> weight,</span>
 <span id="cb6-31">                   <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">diagram        =</span> dg_vertical_bars,</span>
+font-style: inherit;">by             =</span> state,</span>
 <span id="cb6-32">                   <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">diagram        =</span> dg_vertical_bars,</span>
+<span id="cb6-33">                   <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">formats        =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -3125,7 +3130,7 @@ background-color: null;
 font-style: inherit;">age =</span> age2., <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">state =</span> state.),</span>
-<span id="cb6-33">                   <span class="at" style="color: #657422;
+<span id="cb6-34">                   <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">var_labels     =</span> <span class="fu" style="color: #4758AB;
 background-color: null;
@@ -3134,12 +3139,12 @@ background-color: null;
 font-style: inherit;">weight_pct =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Population"</span>),</span>
-<span id="cb6-34">                   <span class="at" style="color: #657422;
+<span id="cb6-35">                   <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">titles         =</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Look the drop down list right above"</span>,</span>
-<span id="cb6-35">                   <span class="at" style="color: #657422;
+<span id="cb6-36">                   <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">footnotes      =</span> <span class="st" style="color: #20794D;
 background-color: null;
