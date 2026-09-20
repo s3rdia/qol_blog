@@ -1,0 +1,137 @@
+---
+title: "qol 1.3.5: Still a lot to do"
+image: "logo.png"
+author: "qol Blog"
+date: "2026-09-20"
+categories: [R, Update]
+---
+
+With the last version I already thought that the next updates will get smaller, but damn, there are so many small things one can overlook. Thanks to some watchful eyes helping me trace these bugs, I will eventually get them all. At least I try. Even though this update has some new things to offer and many bugs to fix nothing really stands out that much. The most attention fell onto the [transpose_plus](https://s3rdia.github.io/qol/reference/transpose_plus.html) function. So let us have a look. The full release notes can be found [here](https://github.com/s3rdia/qol/releases/tag/v1.3.5).
+
+### Further shaping transposition
+
+Even though I like SAS I have to admit that the transposition function hasn't much to offer. So right from the beginning I started shaping a function which I would have liked to see inside SAS. Now I am added even more functionality to this function.
+
+Normally when you think about transposition you either just reshape data or you additionally summarise data and then reshape. I thought: Well why only sums? Why not mean, median, percentages and so on? Why not all in one go? So I just implemented the `statistics` parameter already known from other functions and it works exacly like in the other functions. So bascially in situations were you had to summarise -> transpose separately, you can now just use [transpose_plus](https://s3rdia.github.io/qol/reference/transpose_plus.html) directly and handle everything in one go.
+
+The function also got some quality of life improvements like handling duplicate variable names without aborting or generating unweighted frequencies if no values are provided.
+
+There was also a serious flaw. When transposing multiple variables at once the results were always picked from the all variables nested results even though they have to be picked from their respective combination. So the results in this multiple variable transposition were wrong. This is fixed now.
+
+Also some of the default behaviour was changed. The function received a new parameter `summarise` which summarises the data before transposing. This is the default behaviour when using formats, but was not without formats. `summarise` is TRUE by default now.\
+[transpose_plus](https://s3rdia.github.io/qol/reference/transpose_plus.html) now has a new default wide to long behaviour by setting variables beside each other. When setting the new `stack` parameter to TRUE, the old default behaviour is triggered.
+
+```{R, eval = FALSE}
+# Example formats
+age. <- discrete_format(
+    "Total"          = 0:100,
+    "under 18"       = 0:17,
+    "18 to under 25" = 18:24,
+    "25 to under 55" = 25:54,
+    "55 to under 65" = 55:64,
+    "65 and older"   = 65:100)
+
+sex. <- discrete_format(
+    "Total"  = 1:2,
+    "Male"   = 1,
+    "Female" = 2)
+
+sex2. <- discrete_format(
+    "Total"  = c("Male", "Female"),
+    "Male"   = "Male",
+    "Female" = "Female")
+
+income. <- interval_format(
+    "Total"              =    0:100000,
+    "below 500"          =    0:500,
+    "500 to under 1000"  =  500:1000,
+    "1000 to under 2000" = 1000:2000,
+    "2000 and more"      = 2000:100000)
+
+# Example data frame
+my_data <- dummy_data(1000)
+
+# Transpose from long to wide and use a multilabel to generate additional categories
+long_to_wide <- my_data |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = c("sex", "education"),
+                   values   = income,
+                   formats  = list(sex = sex., age = age.),
+                   weight   = weight,
+                   na.rm    = TRUE)
+
+# Transpose back from wide to long and put results beside each other. The list
+# entry names determine the new variable names.
+wide_to_long <- long_to_wide |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = list(sex       = c("Total", "Male", "Female"),
+                                   education = c("low", "middle", "high")))
+
+# Transpose back from wide to long and put results below each other by setting
+# stack to TRUE.
+wide_to_long <- long_to_wide |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = list(sex       = c("Total", "Male", "Female"),
+                                   education = c("low", "middle", "high")),
+                   stack    = TRUE)
+
+# Transpose from long to wide and use a multilabel to generate additional categories
+long_to_wide <- my_data |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = "sex",
+                   values   = c(income, weight),
+                   formats  = list(sex = sex., age = age.),
+                   weight   = weight,
+                   na.rm    = TRUE) |>
+    rename_multi("income_Total"  = "Total",
+                 "income_Male"   = "Male",
+                 "income_Female" = "Female")
+
+# Transpose back from wide to long but this time put results side by side.
+# To do that every list entry has to have the same name. The values parameter
+# is then used to give the new value variables a name. For the expressions of
+# the new categorical variable the variable names from the first pivot list
+# entry are used.
+wide_to_long <- long_to_wide |>
+    transpose_plus(preserve = c(year, age),
+                   values   = c(income, weight),
+                   pivot    = list(sex = c("Total", "Male", "Female"),
+                                   sex = c("weight_Total", "weight_Male", "weight_Female")))
+
+# Nesting variables in long to wide transposition
+nested <- my_data |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = "sex + education",
+                   values   = income,
+                   formats  = list(sex = sex., age = age.),
+                   weight   = weight,
+                   na.rm    = TRUE)
+
+# Or both, nested and un-nested, at the same time
+both <- my_data |>
+    transpose_plus(preserve = c(year, age),
+                   pivot    = c("sex + education", "sex", "education"),
+                   values   = income,
+                   formats  = list(sex = sex., age = age.),
+                   weight   = weight,
+                   na.rm    = TRUE)
+```
+
+### One other change to mention
+
+In [summarise_plus](https://s3rdia.github.io/qol/reference/summarise_plus.html) class variables will now be converted to character or numeric instead of being returned as factors by default. Set the new `convert` parameter to FALSE to get back the past behaviour.
+
+### More to compute
+
+[compute.](https://s3rdia.github.io/qol/reference/compute..html) can now handle [concat](https://s3rdia.github.io/qol/reference/concat.html), [sub_string](https://s3rdia.github.io/qol/reference/sub_string.html) and [ifelse_multi](https://s3rdia.github.io/qol/reference/ifelse_multi.html).
+
+### Some small time savers
+
+Found some unnecessary calculation in the format applying routine and threw it out. [summarise_plus](https://s3rdia.github.io/qol/reference/summarise_plus.html) got a small optimization in the `nesting = "all" or "single` route.\
+The biggest time saver is in the Excel table formatting were column width and row height adjustments should now be handled faster.
+
+### What about the graphics?
+
+Well, sadly nothing new on [Version 1.4.0](https://s3rdia.github.io/qol_blog/posts/12.%20Graphics/) which bothers me a bit. I just enhanced the visuals on interactive graphics a bit, but there are no new diagram types. The framework can already be tested, just visit the [GitHub Page](https://github.com/s3rdia/qol) and switch to the "graphics" branch. Download the source code from there and you are good to go.
+
+Thing is, this is not because I am lazy, but because I have something up my sleeve I am working on with more priority at the moment. And this thing takes quite a lot more time than I anticipated, but I want it to be the best it can be. Since [qol](https://s3rdia.github.io/qol/index.html) is so huge that it can be used as it's own ecosystem, it deserves a comprehensive documentation. I hope that I can type fast enough to get this thing out this year, but for the moment I will just say this: It will be something that welcomes the absolute beginner with open arms and can still teach even a seasoned pro something new.
