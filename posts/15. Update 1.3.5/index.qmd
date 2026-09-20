@@ -10,7 +10,7 @@ With the last version I already thought that the next updates will get smaller, 
 
 ### Further shaping transposition
 
-Even though I like SAS I have to admit that the transposition function hasn't much to offer. So right from the beginning I started shaping a function which I would have liked to see inside SAS. Now I am added even more functionality to this function.
+Even though I like SAS I have to admit that the transposition function hasn't much to offer. So right from the beginning I started shaping a function which I would have liked to see inside SAS. Now I added even more functionality to this function.
 
 Normally when you think about transposition you either just reshape data or you additionally summarise data and then reshape. I thought: Well why only sums? Why not mean, median, percentages and so on? Why not all in one go? So I just implemented the `statistics` parameter already known from other functions and it works exacly like in the other functions. So bascially in situations were you had to summarise -> transpose separately, you can now just use [transpose_plus](https://s3rdia.github.io/qol/reference/transpose_plus.html) directly and handle everything in one go.
 
