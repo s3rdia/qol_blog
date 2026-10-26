@@ -10,7 +10,221 @@
 <atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog for the package qol</description>
 <generator>quarto-1.9.38</generator>
-<lastBuildDate>Sat, 19 Sep 2026 22:00:00 GMT</lastBuildDate>
+<lastBuildDate>Sun, 25 Oct 2026 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>qol 1.3.6: Happy Birthday!</title>
+  <dc:creator>qol Blog</dc:creator>
+  <link>https://your-website-url.example.com/posts/16. Update 1.3.6/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+
+<p>I am probably repeating myself, but the updates keep getting bigger instead of smaller. The good thing is though that what is implemented and what is fixed is becoming more and more specific. But what I completely forgot until now is: On October 10th was qol’s first birthday. Yeah! I somehow can’t believe how fast a year can pass. In any case I am very happy with how things shaped out and a bit shocked in how big this got. And it will become even bigger. Let’s get going. The full release notes can be found <a href="https://github.com/s3rdia/qol/releases/tag/v1.3.6">here</a>.</p>
+<section id="happy-birthday-to-qol" class="level3">
+<h3 class="anchored" data-anchor-id="happy-birthday-to-qol">Happy birthday to qol</h3>
+<p>First things first, let us get some numbers out there. Since the first release on CRAN on Ocotber 10th 2025 we got:</p>
+<ul>
+<li>13 updates released</li>
+<li>103 new functions added and 4 removed</li>
+<li>136 new functionalities added to existing functions</li>
+<li>160 bugs fixed</li>
+<li>The first release had 37 exported functions the current release has 136</li>
+<li>The original source code had less than 10.000 lines of code, the current version has more than 25.000</li>
+<li>At the beginning there were 427 unit test expectations now there are 1.493</li>
+<li>The package was downloaded 5.400 times since the first release</li>
+</ul>
+</section>
+<section id="more-parameters-support-macro-variables" class="level3">
+<h3 class="anchored" data-anchor-id="more-parameters-support-macro-variables">More parameters support macro variables</h3>
+<p>Within <a href="https://s3rdia.github.io/qol/reference/any_table.html">any_table</a> the parameters <code>values</code>, <code>by</code>, <code>box</code>, <code>pct_group</code>, <code>pct_value</code> and <code>pct_block</code> now support macro variables, <a href="https://s3rdia.github.io/qol/reference/summarise_plus.html">summarise_plus</a> parameter <code>class</code> now got this functionality and all functions which can handle formats can say: the <code>formats</code> now also supports the SAS macro variable writing style.</p>
+</section>
+<section id="more-flexibility-when-joining" class="level3">
+<h3 class="anchored" data-anchor-id="more-flexibility-when-joining">More flexibility when joining</h3>
+<p><a href="https://s3rdia.github.io/qol/reference/multi_join.html">multi_join</a> can now join multiple data frames on different variables within itself. Before one could only set a static set of variables for the base data frame, but now one can set different variables per join for the base data frame. Additionally variables which are just joined onto the base data frame can then be used as key variables for upcoming joins.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1">df1d <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">key1 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>),</span>
+<span id="cb1-2">                   <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">key2 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"b"</span>),</span>
+<span id="cb1-3">                   <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">key3 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>),</span>
+<span id="cb1-4">                   <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">a    =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>)</span>
+<span id="cb1-5"></span>
+<span id="cb1-6">df2d <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">var1 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>),</span>
+<span id="cb1-7">                   <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">var2 =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"b"</span>),</span>
+<span id="cb1-8">                   <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">b    =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"b"</span>)</span>
+<span id="cb1-9"></span>
+<span id="cb1-10">df3d <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">any  =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"a"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"b"</span>),</span>
+<span id="cb1-11">                   <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">name =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span>),</span>
+<span id="cb1-12">                   <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">c    =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"c"</span>)</span>
+<span id="cb1-13"></span>
+<span id="cb1-14">multiple_joined4 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">multi_join</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(df1d, df2d, df3d),</span>
+<span id="cb1-15">                               <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">on =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">df1d =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">list</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"key1"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"key2"</span>),</span>
+<span id="cb1-16">                                                     <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"key3"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"key2"</span>)),</span>
+<span id="cb1-17">                                         <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">df2d =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"var1"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"var2"</span>),</span>
+<span id="cb1-18">                                         <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">df3d =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"name"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"any"</span>)))</span></code></pre></div></div>
+</div>
+</section>
+<section id="labels-usable-in-tables" class="level3">
+<h3 class="anchored" data-anchor-id="labels-usable-in-tables">Labels usable in tables</h3>
+<p><a href="https://s3rdia.github.io/qol/reference/frequencies.html">frequencies</a>, <a href="https://s3rdia.github.io/qol/reference/crosstabs.html">crosstabs</a> and <a href="https://s3rdia.github.io/qol/reference/any_table.html">any_table</a> are now able to handle value labels attached to variables. Which means in your data you may see values 1 and 2, but in the final table you see “Male” and “Female” if these labels are attached. Formats will always overrule labels, if a format is applied to a labelled variable.</p>
+</section>
+<section id="variable-ranges-by-pattern" class="level3">
+<h3 class="anchored" data-anchor-id="variable-ranges-by-pattern">Variable ranges by pattern</h3>
+<p><a href="https://s3rdia.github.io/qol/reference/keep_dropp.html">keep</a>, <a href="https://s3rdia.github.io/qol/reference/keep_dropp.html">dropp</a>, <a href="https://s3rdia.github.io/qol/reference/retain.html">retain_variables</a> and <a href="https://s3rdia.github.io/qol/reference/add_variable_range.html">add_variable_range</a> are now able to select variable ranges by pattern. When writing e.g.&nbsp;age1-age10 (the hyphen triggers this behaviour) all “age” variables from 1 to 10 are selected regardless of where they are located in the data set.<br>
+<a href="https://s3rdia.github.io/qol/reference/keep_dropp.html">keep</a> and <a href="https://s3rdia.github.io/qol/reference/keep_dropp.html">dropp</a> now also accept variable vectors and can keep/drop columns with NA as name.</p>
+</section>
+<section id="a-real-else-if" class="level3">
+<h3 class="anchored" data-anchor-id="a-real-else-if">A real else if</h3>
+<p><a href="https://s3rdia.github.io/qol/reference/if_else.html">if.</a>, <a href="https://s3rdia.github.io/qol/reference/if_else.html">else_if.</a> and <a href="https://s3rdia.github.io/qol/reference/if_else.html">else.</a> now add an attribute to the data frame which carries the currently active condition as a logical vector so that follow up statements can catch this and further work with an already handled condition. This enables <a href="https://s3rdia.github.io/qol/reference/if_else.html">else_if.</a> and <a href="https://s3rdia.github.io/qol/reference/if_else.html">else.</a> to not only work on NA values.<br>
+The <a href="https://s3rdia.github.io/qol/reference/do_if.html">do_if</a> family now also uses the way of attaching attributes to the data frame instead of adding real variables.</p>
+</section>
+<section id="something-is-coming-up" class="level3">
+<h3 class="anchored" data-anchor-id="something-is-coming-up">Something is coming up</h3>
+<p><img src="https://your-website-url.example.com/posts/16. Update 1.3.6/mystery.png" class="img-fluid" style="float:left;width:30.0%"></p>
+
+
+</section>
+
+ ]]></description>
+  <category>R</category>
+  <category>Update</category>
+  <guid>https://your-website-url.example.com/posts/16. Update 1.3.6/</guid>
+  <pubDate>Sun, 25 Oct 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/16. Update 1.3.6/logo.png" medium="image" type="image/png" height="70" width="144"/>
+</item>
 <item>
   <title>qol 1.3.5: Still a lot to do</title>
   <dc:creator>qol Blog</dc:creator>

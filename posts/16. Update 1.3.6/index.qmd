@@ -1,0 +1,69 @@
+---
+title: "qol 1.3.6: Happy Birthday!"
+image: "logo.png"
+author: "qol Blog"
+date: "2026-10-26"
+categories: [R, Update]
+---
+
+I am probably repeating myself, but the updates keep getting bigger instead of smaller. The good thing is though that what is implemented and what is fixed is becoming more and more specific. But what I completely forgot until now is: On October 10th was qol's first birthday. Yeah! I somehow can't believe how fast a year can pass. In any case I am very happy with how things shaped out and a bit shocked in how big this got. And it will become even bigger. Let's get going. The full release notes can be found [here](https://github.com/s3rdia/qol/releases/tag/v1.3.6).
+
+### Happy birthday to qol
+
+First things first, let us get some numbers out there. Since the first release on CRAN on Ocotber 10th 2025 we got:
+
+* 13 updates released
+* 103 new functions added and 4 removed
+* 136 new functionalities added to existing functions
+* 160 bugs fixed
+* The first release had 37 exported functions the current release has 136
+* The original source code had less than 10.000 lines of code, the current version has more than 25.000
+* At the beginning there were 427 unit test expectations now there are 1.493
+* The package was downloaded 5.400 times since the first release
+
+### More parameters support macro variables
+
+Within [any_table](https://s3rdia.github.io/qol/reference/any_table.html) the parameters `values`, `by`, `box`, `pct_group`, `pct_value` and `pct_block` now support macro variables, [summarise_plus](https://s3rdia.github.io/qol/reference/summarise_plus.html) parameter `class` now got this functionality and all functions which can handle formats can say: the `formats` now also supports the SAS macro variable writing style.
+
+### More flexibility when joining
+
+[multi_join](https://s3rdia.github.io/qol/reference/multi_join.html) can now join multiple data frames on different variables within itself. Before one could only set a static set of variables for the base data frame, but now one can set different variables per join for the base data frame. Additionally variables which are just joined onto the base data frame can then be used as key variables for upcoming joins.
+
+```{R, eval = FALSE}
+df1d <- data.frame(key1 = c(1, 1, 2),
+                   key2 = c("a", "a", "b"),
+                   key3 = c(10, 20, 20),
+                   a    = "a")
+
+df2d <- data.frame(var1 = c(1, 2),
+                   var2 = c("a", "b"),
+                   b    = "b")
+
+df3d <- data.frame(any  = c("a", "a", "b"),
+                   name = c(10, 20, 20),
+                   c    = "c")
+
+multiple_joined4 <- multi_join(list(df1d, df2d, df3d),
+                               on = list(df1d = list(c("key1", "key2"),
+                                                     c("key3", "key2")),
+                                         df2d = c("var1", "var2"),
+                                         df3d = c("name", "any")))
+```
+
+### Labels usable in tables
+
+[frequencies](https://s3rdia.github.io/qol/reference/frequencies.html), [crosstabs](https://s3rdia.github.io/qol/reference/crosstabs.html) and [any_table](https://s3rdia.github.io/qol/reference/any_table.html) are now able to handle value labels attached to variables. Which means in your data you may see values 1 and 2, but in the final table you see "Male" and "Female" if these labels are attached. Formats will always overrule labels, if a format is applied to a labelled variable.
+
+### Variable ranges by pattern
+
+[keep](https://s3rdia.github.io/qol/reference/keep_dropp.html), [dropp](https://s3rdia.github.io/qol/reference/keep_dropp.html), [retain_variables](https://s3rdia.github.io/qol/reference/retain.html) and [add_variable_range](https://s3rdia.github.io/qol/reference/add_variable_range.html) are now able to select variable ranges by pattern. When writing e.g. age1-age10 (the hyphen triggers this behaviour) all "age" variables from 1 to 10 are selected regardless of where they are located in the data set.\
+[keep](https://s3rdia.github.io/qol/reference/keep_dropp.html) and [dropp](https://s3rdia.github.io/qol/reference/keep_dropp.html) now also accept variable vectors and can keep/drop columns with NA as name.
+
+### A real else if
+
+[if.](https://s3rdia.github.io/qol/reference/if_else.html), [else_if.](https://s3rdia.github.io/qol/reference/if_else.html) and [else.](https://s3rdia.github.io/qol/reference/if_else.html) now add an attribute to the data frame which carries the currently active condition as a logical vector so that follow up statements can catch this and further work with an already handled condition. This enables [else_if.](https://s3rdia.github.io/qol/reference/if_else.html) and [else.](https://s3rdia.github.io/qol/reference/if_else.html) to not only work on NA values.\
+The [do_if](https://s3rdia.github.io/qol/reference/do_if.html) family now also uses the way of attaching attributes to the data frame instead of adding real variables.
+
+### Something is coming up
+
+![](mystery.png){style="float:left" width=30%}
