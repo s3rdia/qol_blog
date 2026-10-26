@@ -10,7 +10,7 @@ I am probably repeating myself, but the updates keep getting bigger instead of s
 
 ### Happy birthday to qol
 
-First things first, let us get some numbers out there. Since the first release on CRAN on Ocotber 10th 2025 we got:
+First things first, let us get some numbers out there. Since the first release on CRAN on October 10th 2025 we got:
 
 * 13 updates released
 * 103 new functions added and 4 removed
